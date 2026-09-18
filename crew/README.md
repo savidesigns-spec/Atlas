@@ -47,11 +47,58 @@ already accessible.
 
 ## Known platform gap: no scheduled autonomy yet
 
-This Anthropic org's plan does not support attaching MCP connectors
-(including Hglif3_WordPress) to a scheduled Routine/trigger, so a cron-fired
-PULSE run would wake up with no access to the site. Until that's available
-(or PULSE gets a directly-credentialed data path instead of going through
-the WordPress MCP connector), "real autonomous backend agents" in practice
-means: on-demand runs in a session that already holds the connector, not
-unattended scheduled runs. This applies to every crew member, not just
-PULSE — anything built here inherits the same limit until it's resolved.
+**Chased down 2026-09-18, confirmed (not a bug on our end):**
+`ListConnectors` shows Hglif3 WordPress as `connected: true, enabledInChat: true`
+— the connector itself is healthy. But `create_trigger`'s `connectors`
+parameter — the thing that would let a scheduled Routine carry that
+connector into a cron-fired session — returns a flat
+`"the connectors parameter is not available for this organization"`
+regardless of self-bind or new-session mode. This is an org/plan-level
+feature gate, not something fixable from inside a session.
+
+Two real paths forward, neither of which I can do myself:
+1. **Org owner checks claude.ai account/billing settings** for a Routine-connector
+   feature flag or plan upgrade that unlocks it.
+2. **Build a directly-credentialed backend** (real WooCommerce REST API keys +
+   GA4/Search Console/ad-platform API credentials, hosted independently of
+   the Claude Code Remote connector system). Bigger lift, but it would solve
+   *both* this scheduling gap and the deeper data-access gap above in one
+   move, since it wouldn't depend on the MCP connector at all.
+
+Until one of those happens: "real autonomous backend agents" means on-demand
+runs in a session that already holds the connector, not unattended scheduled
+runs. Every crew member inherits this limit, not just PULSE.
+
+## Team structure
+
+Ten crew members is too many to build one at a time with no organization.
+As of 2026-09-18 the crew is split into 3 operational teams plus Mission
+Control, each with its own dedicated git worktree (a real branch, not just
+a folder) so a team's roster, knowledge, and open work can evolve —
+agents added, retired, or handed new tools — without churning the other
+teams' history or this integration branch.
+
+| Tree (branch) | Members | Mandate |
+|---|---|---|
+| `crew/command` | ATLAS | Cross-team status, the guardrail policy of record, escalations |
+| `crew/team-revenue` | APEX, VAULT, ANCHOR | Money in, money tracked, deals closed |
+| `crew/team-growth` | BEACON, SCOUT, HORIZON | Demand generation, market intel, expansion |
+| `crew/team-ops` | FORGE, PULSE, CIPHER | Content, monitoring, comms/security |
+
+Each team worktree holds:
+- `TEAM.md` — charter, current roster with status (`active` / `proposed` /
+  `retired`), and a decision log of what changed and why.
+- `knowledge/` — findings a team's agents accumulate (blockers, site
+  quirks, what worked) so the next run — by me or a future session —
+  doesn't rediscover them from scratch.
+- `proposals/` — the process for adding a new agent to a team or retiring
+  one. Nothing here spawns or deletes an agent by itself; a proposal is a
+  written case (problem, mandate, tools needed, guardrail/autonomy level,
+  sunset condition) that becomes real the same way everything else in this
+  repo does — reviewed and executed on request, per the standing guardrail
+  above. "Self-populating" describes the process being fast and low-friction,
+  not unsupervised.
+
+PULSE's existing spec and reports stay put on this integration branch for
+now (see `crew/pulse.md`, `docs/reports/`) rather than being migrated —
+it's live and working; `crew/team-ops/` points to it instead of duplicating it.
