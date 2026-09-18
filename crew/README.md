@@ -12,7 +12,7 @@ mandate, tools it actually has, what it produces, and its autonomy level.
 | APEX | Docking Bay · Commerce | not built | — |
 | CIPHER | Comms & Intelligence | not built | — |
 | VAULT | Treasury & Inventory | not built | — |
-| FORGE | Fabrication Bay | not built | — |
+| **FORGE** | **Fabrication Bay** | **live — see `crew/team-ops`** | **on-demand — draft-only** |
 | **PULSE** | **Life Support · Analytics** | **live** | **on-demand — read-only** |
 | SCOUT | Long-Range Sensors | not built | — |
 | BEACON | Broadcast Array · Ad spend | not built | blocked on ad-account access |
@@ -102,3 +102,11 @@ Each team worktree holds:
 PULSE's existing spec and reports stay put on this integration branch for
 now (see `crew/pulse.md`, `docs/reports/`) rather than being migrated —
 it's live and working; `crew/team-ops/` points to it instead of duplicating it.
+
+**2026-09-18 — FORGE built**, live natively on `crew/team-ops` (draft-only
+standing permission). First output: a draft blog post plus a
+recommendation on the two stale pages PULSE flagged. See
+`crew/team-ops/forge.md` on that branch for the full spec, and
+`crew/team-ops/knowledge/2026-09-18-forge-first-run.md` for what it found
+— including a real permission boundary (draft writes unprompted, taxonomy
+writes blocked) discovered by testing rather than assuming.
