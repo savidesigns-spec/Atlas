@@ -35,9 +35,18 @@ carries a summary, this is the source of truth:
 Decided 2026-09-18. Changing this requires the Founder's explicit sign-off,
 recorded in the decision log below — not a unilateral edit by any agent.
 
+**First carved-out exception, 2026-09-18:** FORGE's daily blog post —
+write *and publish*, one per day, no draft gate. Scope is narrow (blog
+posts only) and matches the guardrail's own original example of what a
+carve-out should look like. Full task spec: `crew/team-ops/forge.md`.
+Everything else FORGE touches is still draft-only, and every other crew
+member's default is still the rule above, not this exception.
+
 ## Cross-team status (as of 2026-09-18)
 
-- **team-ops**: PULSE live, read-only, on-demand. FORGE and CIPHER not built.
+- **team-ops**: PULSE live (read-only, on-demand). FORGE live (draft-only,
+  plus the daily-blog publish exception above — currently blocked from
+  actually publishing, see Escalation 3). CIPHER not built.
 - **team-revenue**: nothing built yet. APEX, VAULT, ANCHOR all proposed.
 - **team-growth**: nothing built yet. BEACON blocked on ad-account access;
   SCOUT and HORIZON proposed.
@@ -51,6 +60,12 @@ recorded in the decision log below — not a unilateral edit by any agent.
    blocks BEACON's actual mandate and limits PULSE to content/catalog only.
    Founder decided 2026-09-18 to proceed without it for now — revisit when
    ready.
+3. **Publish permission**: FORGE's daily blog task is authorized and fully
+   built, but every publish attempt is denied by Claude Code's own
+   auto-mode classifier (`External System Writes`) — a session-level
+   setting, not a WordPress one. The tool's own error names the fix: the
+   Founder adds a permission rule in Claude Code settings. Until then, the
+   daily post lands as a draft and needs manual publishing each day.
 
 ## Decision log
 
@@ -63,3 +78,8 @@ recorded in the decision log below — not a unilateral edit by any agent.
 - **2026-09-18** — Split crew into 4 trees (this one plus team-revenue,
   team-growth, team-ops) so each team's roster and knowledge can evolve
   independently.
+- **2026-09-18** — Built FORGE (draft-only). Same day, Founder authorized
+  its daily blog post as the guardrail's first standing publish exception.
+  Discovered the publish action is blocked by Claude Code's own permission
+  classifier, separate from and in addition to the WordPress-side gaps
+  already known — opened as Escalation 3 above.
