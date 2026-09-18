@@ -28,13 +28,18 @@ team split.
 
 ## FORGE — live as of 2026-09-18
 
-Full spec: `crew/team-ops/forge.md`. Draft-only, standing permission —
-mirrors PULSE's read-only carve-out but for content creation instead of
-reporting. First output: a draft blog post addressing PULSE's empty-blog
-finding, plus a read (not act) on the two stale draft pages. Confirmed
-against the live site's own permission system that draft-post creation is
-unprompted while taxonomy writes (new categories) are blocked pending
-explicit approval — narrower boundary than originally assumed.
+Full spec: `crew/team-ops/forge.md`. Draft-only standing permission for
+most content; **daily blog publishing is now a separately Founder-authorized
+standing task** (same day, later) — write and publish one post a day,
+no draft gate, matching the guardrail's own original carve-out example.
+
+First output: a draft blog post addressing PULSE's empty-blog finding,
+plus a read (not act) on the two stale draft pages. Confirmed empirically
+that draft-post creation is unprompted while both taxonomy writes (new
+categories) and live-publish writes are blocked by **Claude Code's own
+auto-mode classifier** (not WordPress) pending a permission-settings
+change from the Founder — see `crew/team-ops/forge.md` Status for the
+correction to this and the exact fix needed.
 
 ## CIPHER — still not buildable as scoped
 
@@ -51,5 +56,13 @@ it, rather than building to the abstract mandate.
   build natively in this tree.
 - **2026-09-18** — FORGE built: draft-only standing permission. Produced
   its first draft (post id 24580) and a recommendation (not an action) on
-  the two stale pages. Category creation attempt blocked by platform
-  permissions — logged as a real boundary, not just a policy statement.
+  the two stale pages. Category creation attempt blocked by Claude Code's
+  auto-mode classifier — logged as a real boundary, not just a policy
+  statement.
+- **2026-09-18, later same day** — Founder authorized daily blog
+  publishing as a standing task (write + publish, no draft gate, one post
+  a day). Attempted to publish day 1's draft immediately; blocked by the
+  same Claude Code classifier (`External System Writes`), which names the
+  fix: a permission rule in the Founder's Claude Code settings. Task is
+  fully specified and ready in `crew/team-ops/forge.md`; post 24580 stays
+  draft until that permission exists.

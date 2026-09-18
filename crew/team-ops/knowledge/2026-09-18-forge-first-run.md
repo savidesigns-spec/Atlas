@@ -19,12 +19,32 @@ Corrects an assumption in PULSE's original report (which read "draft" as
 
 Neither was trashed — that's a delete decision, stays with the Founder.
 
-## Platform permission boundary, confirmed empirically
+## Claude Code's own permission classifier, confirmed empirically
+
+This is Claude Code's harness-level auto-mode classifier intercepting the
+tool call before it reaches WordPress at all — not a WordPress-side
+permission. Same mechanism as the org-level Routine/connector block found
+earlier, different layer.
 
 `wp_create_post` with `status: draft` → succeeded, no prompt.
-`wp_create_category` → blocked by the auto-mode classifier ("Modify Shared
-Resources"), even though a category is arguably lower-stakes than a post
-(no content, not visitor-facing on its own). **Takeaway for future agents:**
-don't assume "structural" WordPress writes (categories, tags, menus,
-settings) get the same standing-permission treatment as draft content,
-even when they seem lower-risk on paper. Test before assuming.
+`wp_create_category` → blocked, reason `Modify Shared Resources`, even
+though a category is arguably lower-stakes than a post (no content, not
+visitor-facing on its own).
+
+**Takeaway for future agents:** don't assume "structural" WordPress writes
+(categories, tags, menus, settings) get the same standing-permission
+treatment as draft content, even when they seem lower-risk on paper. Test
+before assuming — and remember the block is coming from Claude Code's own
+settings, not from WordPress, so the fix (if wanted) is a permission rule
+in the Founder's Claude Code settings, not anything in WP Admin.
+
+## 2026-09-18, later same day — publish is blocked the same way
+
+Founder authorized daily blog publishing as a standing task (see
+`crew/team-ops/forge.md` "Daily blog task"). Attempted to publish post
+24580 (`wp_update_post`, `status: publish`) to act on it immediately.
+**Denied**, reason `External System Writes` — same classifier, different
+rule, this time explicitly naming the fix: *"the user can add a Bash
+permission rule to their settings."* Post 24580 stays in `draft`. The
+daily task is fully built and ready; it just can't complete its last step
+without that settings change.
