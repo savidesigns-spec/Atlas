@@ -11,7 +11,7 @@ direct storefront transaction.
 |---|---|---|---|
 | BEACON | Broadcast Array | Leads, licensing, B2B/wholesale opportunities; holds ad spend, reallocates toward ROI | **split status — see below** |
 | SCOUT | Long-Range Sensors | Scans the market — competitors, trends, opportunities | proposed |
-| HORIZON | Frontier Lab | Scans past current operations for new territory to expand into | proposed |
+| **HORIZON** | Frontier Lab | Scans past current operations for new territory to expand into | **active — Koolis program, see below** |
 
 ## BEACON has two separate mandates — one blocked, one now active
 
@@ -42,9 +42,9 @@ split as a marketing team handing qualified leads to sales.
   sources), which doesn't depend on Hglif3.com's connector gaps at all.
   A reasonable next candidate if the Founder wants a second live agent
   after PULSE.
-- **HORIZON** is similarly not blocked by the data gap, but its mandate
-  (expansion territory) is speculative/strategic rather than operational
-  — better suited to periodic, prompted research than a standing process.
+- **HORIZON** went active 2026-09-22 — the Founder's first concrete
+  expansion mandate: Koolis, a curated dropship + affiliate marketplace
+  for HGL members. Full program spec: `koolis-program.md` in this tree.
 
 ## Decision log
 
@@ -58,3 +58,9 @@ split as a marketing team handing qualified leads to sales.
   rule, and the four real blockers found while building it (no retail
   price data, no cost data, no SMS channel, no prospect list) live in
   `crew/team-revenue/wholesale-program.md`.
+- **2026-09-22, later same day** — Founder started Koolis, a curated
+  dropship + affiliate marketplace for HGL members. HORIZON goes active.
+  A Shopify trial store connected to this session during the same
+  conversation turned out to be the intended storefront for it, not (as
+  first assumed) a source of HGL's own wholesale pricing data. Full spec:
+  `koolis-program.md`.
