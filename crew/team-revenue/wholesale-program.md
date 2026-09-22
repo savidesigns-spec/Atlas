@@ -73,6 +73,21 @@ this list deliberately (candidate boutiques/streetwear retailers,
 qualified, not just any address found on the internet) — not skipping
 straight to a blast.
 
+## Resolution path (2026-09-22, Founder's answers)
+
+- **Pricing data:** retail price → **Shopify**; cost → **Tapstitch**.
+  Checked both: a real Shopify MCP connector exists (`get-product`,
+  `search_products`, `list-orders`, etc.) but isn't connected yet — I
+  can't self-authorize a new store connector, that needs the Founder to
+  connect it via claude.ai the same way Hglif3_WordPress was connected.
+  Tapstitch has **no MCP connector in the registry at all** — nothing to
+  install. Cost data will need to come from the Founder directly (export,
+  screenshot, or pasted per-SKU costs), not an API pull.
+- **SMS:** skipped for now. Email-only outreach, via the already-working
+  Gmail connector.
+- **Prospect list:** Founder has existing retailer contacts and will
+  provide them directly — BEACON is not researching/cold-building a list.
+
 ## What's built despite the blockers
 
 **Line sheet, draft, pricing pending** — `line-sheet-draft.md` in this
@@ -96,3 +111,9 @@ propose; they don't send or publish unsupervised on this program.
   documented rather than worked around (fabricated prices, guessed costs,
   or a built-but-empty SMS integration would each look done without
   being real). Line sheet drafted with real products, no invented prices.
+- **2026-09-22, later same day** — Founder resolved three of the four:
+  pricing comes from Shopify (retail, connector exists but not yet
+  connected) + Tapstitch (cost, no connector exists — manual from
+  Founder); SMS skipped for now, email-only; prospect list comes from
+  Founder's existing contacts, not BEACON research. Still waiting on:
+  Shopify connection, Tapstitch cost figures, and the actual contact list.
