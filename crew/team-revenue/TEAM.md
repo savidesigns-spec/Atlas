@@ -11,10 +11,11 @@ contracts.
 |---|---|---|---|
 | APEX | Docking Bay · Commerce | Storefront, orders, live sales data | proposed |
 | VAULT | The Vault · Treasury & Inventory | Cash position, stock levels, financial integrity | proposed |
-| ANCHOR | Docking Clamp | Negotiates and closes B2B/wholesale/licensing deals | proposed |
+| **ANCHOR** | Docking Clamp | Negotiates and closes B2B/wholesale/licensing deals | **active — wholesale deals program, see below** |
 
-None of the three are built yet — see the blocker below before proposing
-implementation work for APEX or VAULT specifically.
+APEX and VAULT aren't built yet — see the blocker below. ANCHOR's
+wholesale-deals mandate went active 2026-09-22, paired with BEACON
+(`crew/team-growth`) — full spec: `wholesale-program.md` in this tree.
 
 ## Blocker: no order/revenue data source
 
@@ -39,3 +40,10 @@ data-pull — but has no CRM or contract system connected yet either.
 - **2026-09-18** — Team tree created. No agents built yet; roster is a
   placeholder pending the order/revenue data-access decision recorded in
   `crew/command/TEAM.md`.
+- **2026-09-22** — Founder asked for a dedicated deals team: find retail
+  stores, send line sheets, close wholesale at 35% of retail (floored at
+  cost), use SMS and email, to feed Tapstitch's dropship fulfillment.
+  ANCHOR goes active for this. Found four real blockers while building it
+  — no retail price data, no cost data, no SMS channel, no prospect list —
+  documented in `wholesale-program.md` rather than building around them
+  silently. Nothing goes out to a real retailer until those close.
