@@ -119,11 +119,20 @@ more API back-and-forth to force through this connector.
    program (`crew/team-revenue/wholesale-program.md` Blocker 2) — need
    real landed cost per product before setting any markup. Collective
    didn't expose margin % either (see Sourcing below) — this is still
-   fully open.
+   fully open. **Narrowed, 2026-10-18:** Spocket (see
+   `koolis-holiday-2026-sourcing.md`) does expose real supplier-discount
+   data, ~25-30% off retail — connecting it is the likely fix for this
+   item, not just a workaround.
 6. ~~Link from the "hgL members" page~~ — **done**, 2026-10-18 (redirect
    built, held in draft pending item 2 above — now unblocked, catalog
    is clean, but still pending item 3's real candidates before it's
    worth publishing).
+7. **Connect a supplier platform that bridges Shopify + WooCommerce** —
+   new item, 2026-10-18. Researched alternatives to Shopify's own
+   Collective; recommended Spocket (and Printful for apparel
+   specifically). Full writeup, pricing, and a filtered Holiday 2026
+   category shortlist: `koolis-holiday-2026-sourcing.md`. Founder
+   decision needed on tier/plan before connecting.
 
 ## Sourcing — 2026-10-18
 
@@ -188,3 +197,16 @@ these are actually in the store.
   third-party network and carries real attribution/cookie-window risk —
   recommended leading with dropship for anything Koolis spends ad money
   promoting.
+- **2026-10-18, later still** — Founder asked for dropship platforms
+  better than Shopify Collective that bridge both Koolis (Shopify) and
+  HGL (WooCommerce), plus Holiday 2026 top picks. Recommended Spocket as
+  primary: only researched option cleanly serving both platforms,
+  exposes real margin data Collective didn't, and is built around the
+  US/EU fast-shipping profile the holiday season needs. Recommended
+  Printful over Printify for apparel specifically (consistency over
+  cost). Cross-referenced six Q4-2026 trend guides and filtered against
+  our own quality rule — explicitly flagged that "wellness/fitness
+  trackers" is trending but was the exact category we discarded last
+  time for lacking real reviews, so it's a retry-through-a-better-
+  supplier candidate, not a reversal of that earlier call. Full writeup:
+  `koolis-holiday-2026-sourcing.md`.
