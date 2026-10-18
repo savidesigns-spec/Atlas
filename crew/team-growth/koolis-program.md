@@ -47,11 +47,36 @@ A product qualifies for Koolis if it clears all of:
 
 ## Where this lives, technically
 
-**A Shopify store is now connected to this session** — "My Store 2"
-(`ruxcnj-ub.myshopify.com`), a fresh, empty **trial-plan** store (Shopify's
-own tool requires this be said plainly: *"Plan: trial — you'll need to
-upgrade before you can start selling and unlock full features."*). This
-is the intended home for Koolis's storefront.
+**Update, 2026-10-18:** the store situation changed entirely since the
+note below was written. The Founder connected a *different* Shopify
+store — name is now literally **"KOOLIS"**, domain
+`tq6geq-yd.myshopify.com`, plan **Basic** (paid, not trial). This is a
+different store than "My Store 2" (different domain entirely), not a
+rename of it.
+
+**Catalog check, 2026-10-18 — not ready, flagging before anything goes
+live:** 33 products exist, but almost none of them pass the quality/
+brand-fit rule above:
+- Most are unrelated dropship-sample items — soy candles, a $1,102
+  hammered-copper kitchen sink, a chandelier, diecast toy trucks, patio
+  furniture, kitchen knife sets. Nothing here was vetted; this reads like
+  a dropship app's auto-populated starter catalog, not real Koolis picks.
+- Two items (vendor "ODMPOD," likely the POD supplier) match real HGL
+  product names at $80 — but both are `ARCHIVED` (not live), so $80 isn't
+  confirmed as a real finalized price, just what's sitting in the feed.
+- Several generic placeholder products ("T-shirt," "Sweater," "Socks,"
+  "Accessories") have no description, negative inventory counts, and one
+  is priced at **$0.00** — broken test data, not real listings.
+
+**Built anyway, per the Founder's explicit ask, but held back:** the
+abandoned "hgL members" page (id 23789) is now retitled "Koolis" and
+redirects to `https://tq6geq-yd.myshopify.com/` (meta-refresh + fallback
+link). **Still `draft` status — not published.** Publishing it now would
+send real HGL members to a storefront full of candles and kitchen knives,
+directly against the quality rule this whole program is built on.
+**Recommend: don't publish until the catalog is actually cleaned up** —
+archive/delete the unrelated dropship-sample products, fix or remove the
+broken $0 placeholders, confirm real pricing on the two legitimate items.
 
 **What I tried and what actually happened, 2026-09-22:**
 - Renaming the store ("My Store 2" → "Koolis"): **not possible via API** —
@@ -75,19 +100,21 @@ more API back-and-forth to force through this connector.
 
 ## Open items before anything goes live
 
-1. **Store rename + theme** — Founder action in Shopify Admin (above).
-2. **Product vetting criteria → real candidates** — nobody's sourced
-   actual products yet. Next step once this doc is confirmed.
-3. **Affiliate program relationships** — none set up. Needs research per
+1. ~~Store rename + theme~~ — **done**, 2026-10-18 (store is now "KOOLIS,"
+   Basic plan).
+2. **Clean the catalog** — 31 of 33 current products need to go (unrelated
+   dropship samples, broken $0 placeholders); the 2 real ODMPOD items need
+   their price confirmed and need to be un-archived once ready.
+3. **Product vetting criteria → real candidates** — still nobody's sourced
+   actual vetted products. Next step once the catalog is cleaned.
+4. **Affiliate program relationships** — none set up. Needs research per
    category (which vendors/programs actually pay affiliates and fit the
    quality bar).
-4. **Dropship fulfillment cost** — same cost-data gap as HGL's wholesale
+5. **Dropship fulfillment cost** — same cost-data gap as HGL's wholesale
    program (`crew/team-revenue/wholesale-program.md` Blocker 2) — need
    real landed cost per product before setting any markup.
-5. **Link from the "hgL members" page** — the abandoned stub on
-   hglif3.com (page id 23789, flagged by PULSE and FORGE as empty/near-
-   empty) is the natural place to announce Koolis to HGL's existing
-   audience. FORGE's job once Koolis has real content to point to.
+6. ~~Link from the "hgL members" page~~ — **done**, 2026-10-18 (redirect
+   built, held in draft pending item 2 above).
 
 ## Decision log
 
@@ -97,3 +124,13 @@ more API back-and-forth to force through this connector.
   publishing isn't, and the specific theme-install attempt hit a URL
   fetch error on Shopify's side. Recorded the quality-over-price rule as
   the program's non-negotiable, per the Founder's explicit instruction.
+- **2026-10-18** — Founder connected a different, new Shopify store
+  (now named "KOOLIS," Basic plan — store rename/plan upgrade resolved
+  on its own). Audited its 33-product catalog against the quality rule:
+  31 don't pass (unrelated dropship-sample junk + broken $0 placeholders),
+  2 real HGL-matching items exist but are archived with unconfirmed
+  pricing. Built the redirect from the "hgL members" page to this store
+  per the Founder's direct request, but held it in `draft` rather than
+  publish it — sending real members to this catalog right now would
+  directly contradict the quality rule. Recommended a catalog cleanup
+  pass before publishing.
