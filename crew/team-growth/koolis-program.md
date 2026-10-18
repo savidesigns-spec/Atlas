@@ -102,19 +102,57 @@ more API back-and-forth to force through this connector.
 
 1. ~~Store rename + theme~~ — **done**, 2026-10-18 (store is now "KOOLIS,"
    Basic plan).
-2. **Clean the catalog** — 31 of 33 current products need to go (unrelated
-   dropship samples, broken $0 placeholders); the 2 real ODMPOD items need
-   their price confirmed and need to be un-archived once ready.
-3. **Product vetting criteria → real candidates** — still nobody's sourced
-   actual vetted products. Next step once the catalog is cleaned.
-4. **Affiliate program relationships** — none set up. Needs research per
-   category (which vendors/programs actually pay affiliates and fit the
-   quality bar).
+2. ~~Clean the catalog~~ — **done**, 2026-10-18. All 31 unvetted/broken
+   products archived (0 active now). The 2 real ODMPOD items are still
+   archived pending price confirmation — not reactivated yet.
+3. **Product vetting criteria → real candidates: started.** Sourced real
+   dropship candidates via Shopify Collective — see "Sourcing" below.
+   Still needs: Founder review + actual import (I can't import myself,
+   only surface the shelf), and more categories beyond the one that
+   panned out.
+4. ~~Affiliate program relationships — research~~ — **done**, 2026-10-18.
+   Full payment-mechanics research, by channel and by program:
+   `koolis-payment-models.md`. Still needs: actually applying to specific
+   programs (Impact account, individual brand applications) once
+   categories are picked.
 5. **Dropship fulfillment cost** — same cost-data gap as HGL's wholesale
    program (`crew/team-revenue/wholesale-program.md` Blocker 2) — need
-   real landed cost per product before setting any markup.
+   real landed cost per product before setting any markup. Collective
+   didn't expose margin % either (see Sourcing below) — this is still
+   fully open.
 6. ~~Link from the "hgL members" page~~ — **done**, 2026-10-18 (redirect
-   built, held in draft pending item 2 above).
+   built, held in draft pending item 2 above — now unblocked, catalog
+   is clean, but still pending item 3's real candidates before it's
+   worth publishing).
+
+## Sourcing — 2026-10-18
+
+Searched Shopify's Collective dropship marketplace across three candidate
+lanes: premium headphones, leather weekender bags, smart fitness watches.
+Applied the quality rule honestly rather than forcing a pick in every
+lane:
+
+- **Headphones: discarded.** Real headphones in this lane had zero
+  reviews (unverifiable quality); only rated items were low-ticket
+  accessories (ear pads, headbands), not real headphone products.
+- **Smart watches: discarded.** Cheap generics had no reviews; the one
+  high-ticket standout — a "refurbished" Apple Watch Series 11 at
+  $1,050.30 — came from an obscure third-party reseller ("Uncle LOL"),
+  which is exactly the kind of grey-market/counterfeit risk that could
+  damage Koolis's credibility. Not worth the brand risk.
+- **Leather weekender bags: strong candidates found.** Durable goods,
+  genuinely aligned with the "built to last, not fast fashion" ethos.
+  Shelf built for Founder review: **Traveler Weekender Duffle** (Classy
+  Leather Bags, $120, 4.4★ / **1,273 reviews** — exceptional trust
+  signal), **Roosevelt Buffalo Weekender** ($170, 4.5★/37), **Walker
+  Leather Weekender Bag + Free Toiletry** ($130, 4.5★/53).
+
+**Import status:** Shopify's Collective channel app needs to be installed
+on the KOOLIS store before these can actually be imported — I surfaced
+the shelf but can't install the app or import products myself, that's a
+merchant action in the Shopify UI. Margin % wasn't exposed by the tool
+either; real margin depends on the retail price the Founder sets once
+these are actually in the store.
 
 ## Decision log
 
@@ -134,3 +172,19 @@ more API back-and-forth to force through this connector.
   publish it — sending real members to this catalog right now would
   directly contradict the quality rule. Recommended a catalog cleanup
   pass before publishing.
+- **2026-10-18, later same day** — Founder: clean the catalog, replace
+  with vetted high-margin/high-commission picks, and do real due
+  diligence on how Koolis gets paid per item before advertising it.
+  Archived all 31 junk/broken products (0 active unvetted items remain).
+  Sourced real dropship candidates via Shopify Collective — found strong
+  ones in leather weekender bags, explicitly discarded headphones and
+  smart watches rather than force weak picks (no-reviews generics, and
+  one real find — a refurbished Apple Watch — carried real grey-market
+  brand risk). Completed real payment-mechanics research across Amazon
+  Associates, Impact, ShareASale/Awin, and CJ Affiliate, plus a direct
+  brand program (YETI) as a model case — see `koolis-payment-models.md`.
+  Key finding: dropship pays directly/immediately (matches the Founder's
+  "direct pay" requirement exactly), affiliate pays on a delay through a
+  third-party network and carries real attribution/cookie-window risk —
+  recommended leading with dropship for anything Koolis spends ad money
+  promoting.
