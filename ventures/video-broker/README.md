@@ -14,3 +14,5 @@ Slack/Discord bots) for automated workflows.
 | `dashboards/index.html` | Clickable prototype: User, Owner and Agent back-office dashboards (sample data) |
 | `site/index.html` | Home page design (light/dark, mobile) with pricing, Founders and agents sections |
 | `site/DESIGN.md` | Design tokens, voice, sitemap, pre-launch rules |
+| `site/founders.html` | Founding Member page: seat counter, showcase wall, kickback calculator |
+| `infra/Studio-Infrastructure-Funding-Launch-Plan.pdf` | 16-page plan: customer-funded cash flow, 37-component list, own servers vs managed hosting, staged path, fast-video rules, visual references. Source: `infra/infrastructure-plan.html`; rebuild with `node infra/render_pdf.js` |

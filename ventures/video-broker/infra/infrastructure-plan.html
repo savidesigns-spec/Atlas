@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Studio Infrastructure, Funding and Launch Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Print document. Rendered to PDF by render_pdf.js (Letter). */
+@page{size:Letter;margin:0.55in 0.6in 0.65in}
+:root{--ink:#15130f;--muted:#5d574d;--line:#ddd6c9;--bg2:#f3efe7;--accent:#d24f1a;--accent-soft:#f9e2d6;--cool:#3554d1;--cool-soft:#e3e8fb;--good:#2f7d3b;--good-soft:#e2f1e4;--warn:#a86400;--warn-soft:#fbefd9}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;color:var(--ink);font:10pt/1.5 "Inter Tight",system-ui,sans-serif;background:#fff}
+h1,h2,h3{line-height:1.12;letter-spacing:-.015em;margin:0}
+h1{font-size:34pt;font-weight:600}
+h2{font-size:19pt;font-weight:600;margin:0 0 4pt}
+h2 em,h1 em{font-family:"Instrument Serif",serif;font-weight:400}
+h3{font-size:11.5pt;font-weight:600;margin:12pt 0 4pt}
+p{margin:0 0 6pt}
+ul,ol{margin:0 0 6pt;padding-left:15pt}
+li{margin:1.5pt 0}
+.page{page-break-after:always;break-after:page}
+.page:last-child{page-break-after:auto}
+.eyebrow{font:500 7.5pt "JetBrains Mono",monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5pt}
+.lede{font-size:11pt;color:var(--muted);margin-bottom:12pt}
+.mono{font-family:"JetBrains Mono",monospace}
+.tag{display:inline-block;font:600 6.8pt "JetBrains Mono",monospace;padding:1pt 4pt;border-radius:3pt;vertical-align:1px}
+.c{background:var(--good-soft);color:var(--good)}
+.l{background:var(--cool-soft);color:var(--cool)}
+.g{background:var(--warn-soft);color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:8.6pt;margin:4pt 0 10pt;page-break-inside:auto}
+tr{page-break-inside:avoid;break-inside:avoid}
+th,td{text-align:left;padding:4pt 5pt;border-bottom:.6pt solid var(--line);vertical-align:top}
+th{font:600 7pt "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--bg2)}
+td.n,th.n{text-align:right;white-space:nowrap}
+.box{border:.8pt solid var(--line);border-radius:6pt;padding:9pt 11pt;margin:8pt 0;break-inside:avoid}
+.box.hot{background:var(--accent-soft);border-color:#efc3ab}
+.box.cool{background:var(--cool-soft);border-color:#c5cff5}
+.box.ok{background:var(--good-soft);border-color:#bfe0c4}
+.box h3{margin-top:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8pt}
+.stat{border:.8pt solid var(--line);border-radius:6pt;padding:8pt}
+.stat b{display:block;font-size:17pt;font-weight:600;letter-spacing:-.02em;color:var(--accent)}
+.stat span{font-size:8pt;color:var(--muted)}
+figure{margin:8pt 0;break-inside:avoid}
+figure img{width:100%;border:.8pt solid var(--line);border-radius:6pt;display:block}
+figcaption{font-size:8pt;color:var(--muted);margin-top:3pt}
+svg text{font-family:"Inter Tight",sans-serif}
+.cover{height:9.6in;display:flex;flex-direction:column;justify-content:space-between}
+.cover .mark{width:34pt;height:34pt;border-radius:9pt;background:conic-gradient(from 210deg,var(--accent),var(--cool),var(--accent))}
+.toc{columns:2;column-gap:24pt;font-size:10pt}
+.toc div{display:flex;justify-content:space-between;border-bottom:.6pt dotted var(--line);padding:3pt 0;break-inside:avoid}
+.wire{border:.8pt solid var(--line);border-radius:6pt;padding:8pt;background:#fff;break-inside:avoid}
+.wire .lbl{font:600 8pt "Inter Tight";margin-bottom:5pt}
+.wire p{font-size:8pt;color:var(--muted);margin:5pt 0 0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:3pt}
+.tiles i{aspect-ratio:9/16;border-radius:3pt;background:linear-gradient(160deg,#e9b48a,#7a8fd6);position:relative}
+.tiles i:nth-child(2){background:linear-gradient(200deg,#7a8fd6,#c7d39a)}
+.tiles i:nth-child(3){background:linear-gradient(140deg,#d98aa6,#e9b48a)}
+.tiles i:nth-child(4){background:linear-gradient(180deg,#c7d39a,#d98aa6)}
+.tiles i b{position:absolute;top:3pt;left:3pt;font:600 5pt "JetBrains Mono";background:var(--accent);color:#fff;padding:1pt 2.5pt;border-radius:2pt}
+.mini-price{display:grid;grid-template-columns:repeat(3,1fr);gap:3pt}
+.mini-price div{border:.6pt solid var(--line);border-radius:3pt;padding:4pt;font-size:7pt}
+.mini-price div.f{outline:1.2pt solid var(--accent)}
+.mini-price s{color:var(--muted)}
+.footer-note{font-size:7.5pt;color:var(--muted);margin-top:8pt}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page cover">
+  <div>
+    <div class="mark"></div>
+    <div class="eyebrow" style="margin-top:22pt">AI Video Studio · name TBD · prepared 2026-10-29</div>
+    <h1>Infrastructure, funding <em>and launch plan.</em></h1>
+    <p class="lede" style="margin-top:12pt;font-size:12.5pt;max-width:5.6in">Everything the studio needs to run: on its own servers, on managed hosting, and in the stages between. Plus how to make customer payments fund the AI vendors, how to keep a video-heavy site fast, and the conversion patterns worth borrowing.</p>
+  </div>
+  <div>
+    <div class="eyebrow">Contents</div>
+    <div class="toc">
+      <div><span>1. What you won't like</span><span>2</span></div>
+      <div><span>2. Customer-funded cash flow</span><span>3</span></div>
+      <div><span>3. Launching with near-zero CAC</span><span>5</span></div>
+      <div><span>4. System map</span><span>6</span></div>
+      <div><span>5. Full component list</span><span>7</span></div>
+      <div><span>6. Option A: our own servers</span><span>9</span></div>
+      <div><span>7. Option B: managed hosting</span><span>10</span></div>
+      <div><span>8. Ways to run it until we're self-hosted</span><span>11</span></div>
+      <div><span>9. Fast video, Higgsfield-style conversion</span><span>12</span></div>
+      <div><span>10. Visual references</span><span>14</span></div>
+      <div><span>11. Launch checklist</span><span>16</span></div>
+      <div><span>Sources</span><span>16</span></div>
+    </div>
+    <p class="footer-note">Confidence tags: <span class="tag c">CERTAIN</span> hard evidence or our own math · <span class="tag l">LIKELY</span> strong inference from several sources · <span class="tag g">GUESSING</span> an assumption to replace with real data. Hosting and server prices are list prices that change often. Re-quote before you sign anything.</p>
+  </div>
+</section>
+
+<!-- ============ 1. UNCOMFORTABLE ============ -->
+<section class="page">
+  <div class="eyebrow">1 · Read this first</div>
+  <h2>What you <em>won't like.</em></h2>
+  <p class="lede">Five facts that shape every decision in this document.</p>
+
+  <div class="box hot"><h3>1. Customer money can pay the vendors, but not on day one.</h3>
+  <p><span class="tag c">CERTAIN</span> Stripe pays out a new account's first charges about <b>7 days</b> after the first payment, up to <b>14 days</b> in some industries. After that, US payouts run on a 2-business-day rolling schedule. Most AI vendors (fal, BytePlus) are <b>prepaid</b>. That leaves a gap of one to two weeks where customers have paid you but you can't touch the money yet. You need a small starting float, typically <b>$5–10k</b> (§2.3). Or you shrink the gap: charge founder seats only at launch, pay Google on its monthly invoice, and ramp usage with $1 trials first.</p></div>
+
+  <div class="box hot"><h3>2. Prepaid cash isn't yours yet.</h3>
+  <p><span class="tag c">CERTAIN</span> When a founder pays for a month, or a customer pays a year up front, you owe them credits. Until those credits are used, the money is a liability (deferred revenue), not profit. Prepaid businesses fail when they spend next month's obligations on this month's salaries. §2.2 has the rules that stop that.</p></div>
+
+  <div class="box"><h3>3. Your own servers don't save money at the start.</h3>
+  <p><span class="tag l">LIKELY</span> AI model fees will be <b>80–90%+ of your cost of goods</b>; servers are a rounding error next to them. A self-hosted stack costs roughly €400–600/mo in hardware plus someone who can run it. Managed hosting starts near $0–150/mo with no operations hire. Self-host the heavy, steady pieces (database, video workers, open-weights models) once the numbers justify it, not before (§6–8).</p></div>
+
+  <div class="box"><h3>4. Near-zero acquisition spend means slow growth.</h3>
+  <p><span class="tag g">GUESSING</span> Organic, referral and creator-credit channels can realistically get you to a few hundred founders in the first 90 days. That's enough to prove demand and fund the vendors. It is <b>not</b> the curve that reaches $250M. That curve needs the capital raise you're planning, spent on paid acquisition once retention data shows it pays back.</p></div>
+
+  <div class="box"><h3>5. Higgsfield's look converts. Some of their tactics are a liability for us.</h3>
+  <p><span class="tag c">CERTAIN</span> Their live pricing config uses deadline badges ("Buy until: Oct 30"), "70% cheaper" and "BEST VALUE" labels, strike-through prices, "UNLIMITED" badges and auto-refill as the default way to buy. Borrow the <b>visual</b> patterns: the autoplay grid, badges, strike-through, sticky call-to-action, live counters. Skip fake-unlimited offers and fake urgency. Our brand promise is honesty, and the FTC treats fake scarcity as a dark pattern (§9).</p></div>
+</section>
+
+<!-- ============ 2. CASH FLOW ============ -->
+<section class="page">
+  <div class="eyebrow">2 · Using customer money to pay the vendors</div>
+  <h2>The customer-funded <em>cash loop.</em></h2>
+  <p class="lede">Customers pay first. Credits are issued immediately. Vendor wallets are refilled only from money Stripe has actually paid out. Nothing is spent that hasn't been collected.</p>
+
+  <svg viewBox="0 0 720 300" width="86%" style="display:block;margin:0 auto" role="img" aria-label="Cash loop: customer pays Stripe, Stripe settles to the operating account, the account refills vendor wallets, vendors run jobs, and jobs consume customer credits">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#5d574d"/></marker></defs>
+    <g font-size="11">
+      <rect x="10" y="30" width="150" height="62" rx="8" fill="#f9e2d6" stroke="#d24f1a"/>
+      <text x="85" y="56" text-anchor="middle" font-weight="600">Customer</text>
+      <text x="85" y="74" text-anchor="middle" fill="#5d574d" font-size="9.5">subscription · founder · top-up</text>
+
+      <rect x="285" y="30" width="150" height="62" rx="8" fill="#fff" stroke="#ddd6c9"/>
+      <text x="360" y="56" text-anchor="middle" font-weight="600">Stripe balance</text>
+      <text x="360" y="74" text-anchor="middle" fill="#5d574d" font-size="9.5">pending: 7–14 days, then T+2</text>
+
+      <rect x="560" y="30" width="150" height="62" rx="8" fill="#e3e8fb" stroke="#3554d1"/>
+      <text x="635" y="52" text-anchor="middle" font-weight="600">Bank accounts</text>
+      <text x="635" y="68" text-anchor="middle" fill="#5d574d" font-size="9.5">Operating · Reserve</text>
+      <text x="635" y="82" text-anchor="middle" fill="#5d574d" font-size="9.5">Unearned (deferred)</text>
+
+      <rect x="560" y="200" width="150" height="62" rx="8" fill="#fff" stroke="#ddd6c9"/>
+      <text x="635" y="226" text-anchor="middle" font-weight="600">Vendor wallets</text>
+      <text x="635" y="244" text-anchor="middle" fill="#5d574d" font-size="9.5">fal · BytePlus · Google invoice</text>
+
+      <rect x="285" y="200" width="150" height="62" rx="8" fill="#fff" stroke="#ddd6c9"/>
+      <text x="360" y="226" text-anchor="middle" font-weight="600">Job router</text>
+      <text x="360" y="244" text-anchor="middle" fill="#5d574d" font-size="9.5">quote → hold → run</text>
+
+      <rect x="10" y="200" width="150" height="62" rx="8" fill="#e2f1e4" stroke="#2f7d3b"/>
+      <text x="85" y="226" text-anchor="middle" font-weight="600">Credit ledger</text>
+      <text x="85" y="244" text-anchor="middle" fill="#5d574d" font-size="9.5">capture on success, refund on fail</text>
+
+      <path d="M160 61H280" stroke="#5d574d" fill="none" marker-end="url(#ar)"/>
+      <text x="220" y="54" text-anchor="middle" font-size="9" fill="#5d574d">① pays</text>
+      <path d="M435 61H555" stroke="#5d574d" fill="none" marker-end="url(#ar)"/>
+      <text x="495" y="54" text-anchor="middle" font-size="9" fill="#5d574d">② payout</text>
+      <path d="M635 92V195" stroke="#5d574d" fill="none" marker-end="url(#ar)"/>
+      <text x="645" y="148" font-size="9" fill="#5d574d">③ refill from settled</text>
+      <text x="645" y="160" font-size="9" fill="#5d574d">money only (R1)</text>
+      <path d="M560 231H440" stroke="#5d574d" fill="none" marker-end="url(#ar)"/>
+      <text x="500" y="224" text-anchor="middle" font-size="9" fill="#5d574d">④ runs job</text>
+      <path d="M285 231H165" stroke="#5d574d" fill="none" marker-end="url(#ar)"/>
+      <text x="225" y="224" text-anchor="middle" font-size="9" fill="#5d574d">⑤ settles</text>
+      <path d="M85 92V195" stroke="#2f7d3b" stroke-dasharray="4 3" fill="none" marker-end="url(#ar)"/>
+      <text x="95" y="140" font-size="9" fill="#2f7d3b">credits issued</text>
+      <text x="95" y="152" font-size="9" fill="#2f7d3b">instantly at payment</text>
+    </g>
+  </svg>
+
+  <h3>2.1 Which vendors bill how</h3>
+  <table>
+    <tr><th>Vendor</th><th>Billing</th><th>Cash effect</th></tr>
+    <tr><td>fal.ai</td><td>Prepaid credit wallet <span class="tag l">LIKELY</span></td><td>Must be funded before jobs run, so keep 3–5 days of runway</td></tr>
+    <tr><td>Google (Gemini API / Vertex: Nano Banana, Veo)</td><td>Cloud billing account, invoiced monthly after usage <span class="tag l">LIKELY</span></td><td><b>Natural float:</b> customers pay this month, Google is paid next month</td></tr>
+    <tr><td>BytePlus ModelArk (Seedance), Kling API</td><td>Prepaid resource packs or top-ups <span class="tag l">LIKELY</span></td><td>Fund in small packs and grow as volume grows</td></tr>
+    <tr><td>Higgsfield API</td><td>Prepaid dollar wallet, $5 minimum <span class="tag l">LIKELY</span></td><td>Same treatment as fal</td></tr>
+    <tr><td>Hosting (Vercel, Supabase, Cloudflare)</td><td>Monthly invoice or card</td><td>Small amounts, paid from operating</td></tr>
+  </table>
+
+  <h3>2.2 Cash rules (enforce these in code and in banking)</h3>
+  <ol style="font-size:9.2pt">
+    <li><b>R1: Settled money only.</b> Vendor wallets are refilled only from money Stripe has paid out, never against pending balance or credit lines.</li>
+    <li><b>R2: Reserve.</b> Hold 10% of the last 30 days' collections in a separate reserve account for refunds and chargebacks. Stripe may also hold its own reserve on a new AI or subscription account.</li>
+    <li><b>R3: Runway alarm.</b> When any vendor wallet drops below 3 days of usage, auto-refill it from operating. If operating can't cover it, the router moves real-time jobs to the Saver queue and pauses new trials. It never overspends.</li>
+    <li><b>R4: Unearned cash is locked.</b> Annual prepayments go to an "Unearned" account and move 1/12 per month into operating. The provider cost of credits customers actually use may be drawn early.</li>
+    <li><b>R5: Pay postpaid where you can</b> (Google, hosting) and prepaid only where you have to.</li>
+    <li><b>R6: Pre-sell founder seats without holding money.</b> Save the customer's card with a Stripe SetupIntent and charge it on launch day. No money is held for a product that doesn't exist yet, which keeps you clear of pre-order holds and refund disputes.</li>
+  </ol>
+</section>
+
+<section class="page">
+  <div class="eyebrow">2 · continued</div>
+  <h3 style="margin-top:0">2.3 How much float the first two weeks need</h3>
+  <p><span class="tag c">CERTAIN math</span> <span class="tag g">GUESSING inputs</span> Typical vendor cost for one active user: Pro, 13,500 credits, 65% used, at $0.00625 wholesale per credit, comes to about <b>$55 a month</b>, or about <b>$26 over the 14 days</b> before Stripe's first payout.</p>
+  <table>
+    <tr><th>Launch cohort (paying)</th><th class="n">Collected at launch</th><th class="n">Vendor cost, first 14 days</th><th class="n">Float needed (cost minus Google's share)</th></tr>
+    <tr><td>100 founders</td><td class="n">≈ $20k</td><td class="n">≈ $2.6k</td><td class="n">≈ $1.7k</td></tr>
+    <tr><td>300 founders</td><td class="n">≈ $60k</td><td class="n">≈ $7.7k</td><td class="n">≈ $5k</td></tr>
+    <tr><td>1,000 founders</td><td class="n">≈ $200k</td><td class="n">≈ $26k</td><td class="n">≈ $17k</td></tr>
+  </table>
+  <p>Assumes about 35% of usage runs on Google, which invoices next month. Two levers bring the float down: open with a $1 seven-day trial week (500 credits each, about $3 of vendor cost per user), and cap the first cohort size.</p>
+
+  <div class="grid3" style="margin-top:10pt">
+    <div class="stat"><b>$5–10k</b><span>recommended starting float for a 300-founder launch</span></div>
+    <div class="stat"><b>3–5 days</b><span>vendor wallet runway to keep at all times</span></div>
+    <div class="stat"><b>10%</b><span>of trailing 30-day collections held in reserve</span></div>
+  </div>
+
+  <h3>2.4 Bank and money tooling</h3>
+  <table>
+    <tr><th>Need</th><th>Use</th><th>Why</th></tr>
+    <tr><td>Business bank with sub-accounts</td><td>Mercury, Relay or similar</td><td>Separate Operating / Reserve / Unearned accounts, with rule-based auto-transfers for R2 and R4</td></tr>
+    <tr><td>Payments and subscriptions</td><td>Stripe Billing + Checkout + Customer Portal + Radar + Tax</td><td>Subscriptions, top-ups, one-click cancel, fraud filtering and sales tax</td></tr>
+    <tr><td>Deferred revenue reporting</td><td>Stripe Revenue Recognition, or the ledger export</td><td>Shows how much cash is unearned at any moment</td></tr>
+    <tr><td>Vendor payments</td><td>A business card with spend limits per vendor</td><td>Caps the damage if a key leaks. Every vendor gets its own card.</td></tr>
+  </table>
+
+  <div class="box cool"><h3>What changes after the capital raise</h3>
+  <p>The cash rules stay. The raise funds three things customer money shouldn't: <b>(1)</b> committed-spend vendor contracts (a 20–50% discount in exchange for prepaying 6–12 months <span class="tag g">GUESSING</span>), <b>(2)</b> paid acquisition ahead of revenue, and <b>(3)</b> salaries. Customer cash keeps funding the cost of what customers use.</p></div>
+</section>
+
+<!-- ============ 3. LOW CAC ============ -->
+<section class="page">
+  <div class="eyebrow">3 · Customer acquisition on almost no budget</div>
+  <h2>Every channel <em>pays for itself</em> or costs only time.</h2>
+  <p class="lede">The rule: no cash goes out for acquisition before a customer has paid. Creators and referrers get paid in credits, which cost about 62¢ per $1 of face value, or in a commission taken from revenue that has already come in.</p>
+  <table>
+    <tr><th>Channel</th><th>Cash cost</th><th>How it's paid</th><th>First 90 days</th></tr>
+    <tr><td>Hglif3 audience (store, email, socials)</td><td class="n">$0</td><td>—</td><td>Founder waitlist and the first 50 beta users</td></tr>
+    <tr><td>Build in public (TikTok, Reels, X)</td><td class="n">$0</td><td>Time. Every post is made with the product.</td><td>3 posts a day showing prompt → result → receipt</td></tr>
+    <tr><td>Creator seeding (CAC test, capped at $9k)</td><td class="n">credits</td><td>Free Pro for 2 months in exchange for content rights</td><td>50 creators</td></tr>
+    <tr><td>Member referrals</td><td class="n">credits</td><td>5% of the referred user's plan credits for 12 months</td><td>Built into every account</td></tr>
+    <tr><td>Affiliates</td><td class="n">from revenue</td><td>20% of collected revenue for 12 months, paid 30 days after the customer pays</td><td>30 AI-tool creators</td></tr>
+    <tr><td>SEO: model price index and comparison pages</td><td class="n">$0</td><td>Generated from pricing.json each week</td><td>20 pages</td></tr>
+    <tr><td>MCP registries, Claude connector directory</td><td class="n">$0</td><td>Listing</td><td>Agent builders</td></tr>
+    <tr><td>Shopify App Store, WooCommerce marketplace</td><td class="n">$0 to list</td><td>Platform revenue share on in-app billing <span class="tag l">LIKELY</span></td><td>Month 3</td></tr>
+    <tr><td>Discord community and weekly contests</td><td class="n">credits</td><td>Contest prizes paid in credits</td><td>Ongoing</td></tr>
+    <tr><td>$1 seven-day trial (CAC test, capped at $5k)</td><td class="n">≈ $3/trial</td><td>Vendor cost of 500 credits</td><td>Kill it if fewer than 15% convert</td></tr>
+  </table>
+  <div class="box ok"><h3>Total cash at risk before revenue: $14k, capped</h3><p>These are the two CAC tests already in <span class="mono">pricing.json</span>. Everything else is time, credits, or a share of revenue already collected. The profit check (<span class="mono">economics.py --check</span>) still guarantees every paid plan clears at least a 25% margin with every credit spent.</p></div>
+</section>
+
+<!-- ============ 4. SYSTEM MAP ============ -->
+<section class="page">
+  <div class="eyebrow">4 · System map</div>
+  <h2>Every part of the studio, <em>in layers.</em></h2>
+  <p class="lede">The same layers exist whether they run on our own servers or on managed hosting. Only who operates them changes.</p>
+  <svg viewBox="0 0 720 560" width="100%" role="img" aria-label="Layered system map from users and agents through edge, apps, core services, data, external vendors and operations">
+    <g font-size="10.5">
+      <!-- layer labels -->
+      <g font-size="8.5" fill="#5d574d" font-family="JetBrains Mono">
+        <text x="0" y="40">CLIENTS</text><text x="0" y="118">EDGE</text><text x="0" y="196">APPS</text>
+        <text x="0" y="290">CORE</text><text x="0" y="386">DATA</text><text x="0" y="470">VENDORS</text><text x="0" y="540">OPS</text>
+      </g>
+      <!-- clients -->
+      <g><rect x="80" y="18" width="140" height="38" rx="6" fill="#f9e2d6" stroke="#d24f1a"/><text x="150" y="41" text-anchor="middle">Users (web, mobile)</text></g>
+      <g><rect x="232" y="18" width="140" height="38" rx="6" fill="#f9e2d6" stroke="#d24f1a"/><text x="302" y="41" text-anchor="middle">Claude / MCP clients</text></g>
+      <g><rect x="384" y="18" width="140" height="38" rx="6" fill="#f9e2d6" stroke="#d24f1a"/><text x="454" y="41" text-anchor="middle">Slack · Discord · Telegram</text></g>
+      <g><rect x="536" y="18" width="180" height="38" rx="6" fill="#f9e2d6" stroke="#d24f1a"/><text x="626" y="41" text-anchor="middle">Shopify · Woo · n8n · Zapier</text></g>
+      <!-- edge -->
+      <rect x="80" y="96" width="636" height="40" rx="6" fill="#e3e8fb" stroke="#3554d1"/>
+      <text x="398" y="120" text-anchor="middle">Cloudflare: DNS · CDN · WAF · DDoS · bot protection (Turnstile) · rate limits</text>
+      <!-- apps -->
+      <g><rect x="80" y="174" width="150" height="44" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="155" y="193" text-anchor="middle" font-weight="600">Marketing site</text><text x="155" y="208" text-anchor="middle" font-size="9" fill="#5d574d">static · founders · SEO</text></g>
+      <g><rect x="242" y="174" width="150" height="44" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="317" y="193" text-anchor="middle" font-weight="600">Web app</text><text x="317" y="208" text-anchor="middle" font-size="9" fill="#5d574d">Create · Automate · Library</text></g>
+      <g><rect x="404" y="174" width="150" height="44" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="479" y="193" text-anchor="middle" font-weight="600">API + MCP server</text><text x="479" y="208" text-anchor="middle" font-size="9" fill="#5d574d">agent keys · OAuth · REST</text></g>
+      <g><rect x="566" y="174" width="150" height="44" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="641" y="193" text-anchor="middle" font-weight="600">Owner + agent consoles</text><text x="641" y="208" text-anchor="middle" font-size="9" fill="#5d574d">admin · audit · caps</text></g>
+      <!-- core -->
+      <g><rect x="80" y="256" width="118" height="60" rx="6" fill="#e2f1e4" stroke="#2f7d3b"/><text x="139" y="281" text-anchor="middle" font-weight="600">Credit ledger</text><text x="139" y="297" text-anchor="middle" font-size="9" fill="#5d574d">quote · hold · capture</text></g>
+      <g><rect x="208" y="256" width="118" height="60" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="267" y="281" text-anchor="middle" font-weight="600">Job router</text><text x="267" y="297" text-anchor="middle" font-size="9" fill="#5d574d">provider adapters</text></g>
+      <g><rect x="336" y="256" width="118" height="60" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="395" y="281" text-anchor="middle" font-weight="600">Queue + workflows</text><text x="395" y="297" text-anchor="middle" font-size="9" fill="#5d574d">realtime · saver · cron</text></g>
+      <g><rect x="464" y="256" width="118" height="60" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="523" y="281" text-anchor="middle" font-weight="600">Media pipeline</text><text x="523" y="297" text-anchor="middle" font-size="9" fill="#5d574d">ffmpeg · posters · HLS</text></g>
+      <g><rect x="592" y="256" width="124" height="60" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="654" y="281" text-anchor="middle" font-weight="600">Trust &amp; safety</text><text x="654" y="297" text-anchor="middle" font-size="9" fill="#5d574d">moderation · audit</text></g>
+      <!-- data -->
+      <g><rect x="80" y="356" width="150" height="50" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="155" y="378" text-anchor="middle" font-weight="600">Postgres</text><text x="155" y="393" text-anchor="middle" font-size="9" fill="#5d574d">primary + replica + PITR</text></g>
+      <g><rect x="242" y="356" width="150" height="50" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="317" y="378" text-anchor="middle" font-weight="600">Redis</text><text x="317" y="393" text-anchor="middle" font-size="9" fill="#5d574d">rate limits · sessions · locks</text></g>
+      <g><rect x="404" y="356" width="150" height="50" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="479" y="378" text-anchor="middle" font-weight="600">Object storage</text><text x="479" y="393" text-anchor="middle" font-size="9" fill="#5d574d">R2 / MinIO · user media</text></g>
+      <g><rect x="566" y="356" width="150" height="50" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="641" y="378" text-anchor="middle" font-weight="600">Video delivery</text><text x="641" y="393" text-anchor="middle" font-size="9" fill="#5d574d">CDN · Stream / Mux / Bunny</text></g>
+      <!-- vendors -->
+      <g><rect x="80" y="446" width="636" height="40" rx="6" fill="#fbefd9" stroke="#a86400"/><text x="398" y="465" text-anchor="middle">fal · Google Gemini/Vertex · BytePlus · Kling · Higgsfield API · Replicate · GPU cloud (open weights)</text><text x="398" y="479" text-anchor="middle" font-size="9" fill="#5d574d">Stripe · email (Resend/Postmark) · TikTok/IG APIs · Claude API (prompt writing)</text></g>
+      <!-- ops -->
+      <rect x="80" y="520" width="636" height="34" rx="6" fill="#f3efe7" stroke="#ddd6c9"/>
+      <text x="398" y="541" text-anchor="middle" font-size="10">CI/CD · infrastructure as code · secrets · logs · metrics · errors · uptime and status page · backups · analytics</text>
+      <!-- connectors -->
+      <g stroke="#b8b0a2" stroke-width="1"><path d="M398 56V96"/><path d="M398 136V174"/><path d="M398 218V256"/><path d="M398 316V356"/><path d="M398 406V446"/></g>
+    </g>
+  </svg>
+</section>
+
+<!-- ============ 5. COMPONENT LIST ============ -->
+<section class="page">
+  <div class="eyebrow">5 · Full component list</div>
+  <h2>Everything the studio needs <em>to run on its own.</em></h2>
+  <p class="lede">Each component with the self-hosted choice (Option A) and the managed choice (Option B). Bold rows are required for launch. The rest can follow.</p>
+  <table>
+    <tr><th>#</th><th>Component</th><th>Job</th><th>Self-hosted (A)</th><th>Managed (B)</th></tr>
+    <tr><td colspan="5" class="mono" style="background:#fff;font-weight:600;font-size:7.5pt">EDGE &amp; WEB</td></tr>
+    <tr><td>1</td><td><b>DNS, CDN, WAF</b></td><td>Speed, DDoS and bot protection</td><td colspan="2">Cloudflare (free → Pro). Same in both options.</td></tr>
+    <tr><td>2</td><td><b>Marketing site</b></td><td>Home, founders, pricing, SEO pages</td><td>Static files on Nginx/Caddy</td><td>Vercel / Cloudflare Pages</td></tr>
+    <tr><td>3</td><td><b>Web app</b></td><td>Create · Automate · Library · billing</td><td>Next.js in Docker (Node)</td><td>Vercel</td></tr>
+    <tr><td>4</td><td><b>Auth</b></td><td>Sign up, login, OAuth, 2FA</td><td>Auth.js / Lucia + Postgres</td><td>Clerk / Supabase Auth</td></tr>
+    <tr><td colspan="5" class="mono" style="background:#fff;font-weight:600;font-size:7.5pt">API &amp; AGENTS</td></tr>
+    <tr><td>5</td><td><b>Public API</b></td><td>REST endpoints mirroring the MCP tools</td><td>Node/Go service</td><td>Vercel functions / Fly.io</td></tr>
+    <tr><td>6</td><td><b>MCP server</b></td><td>Claude connectors and headless agents</td><td>Streamable-HTTP service</td><td>Same, on Fly.io / Railway</td></tr>
+    <tr><td>7</td><td><b>Agent keys and caps</b></td><td>Scopes, per-job and monthly caps, approvals</td><td colspan="2">Part of the API plus Postgres tables</td></tr>
+    <tr><td>8</td><td>Webhook dispatcher</td><td>Signed job and workflow events with retries</td><td>Worker + queue</td><td>Svix / Inngest</td></tr>
+    <tr><td>9</td><td>Chat bots</td><td>Slack, Discord, Telegram</td><td colspan="2">Small services calling the API</td></tr>
+    <tr><td colspan="5" class="mono" style="background:#fff;font-weight:600;font-size:7.5pt">CORE</td></tr>
+    <tr><td>10</td><td><b>Credit ledger</b></td><td>Balances, holds, refunds, expiry</td><td colspan="2">Postgres, append-only, in transactions</td></tr>
+    <tr><td>11</td><td><b>Pricing service</b></td><td>Live price per job, profit-rule floor</td><td colspan="2">pricing.json plus live vendor price table</td></tr>
+    <tr><td>12</td><td><b>Job router + vendor adapters</b></td><td>Cheapest healthy vendor, failover</td><td colspan="2">Service plus one adapter per vendor</td></tr>
+    <tr><td>13</td><td><b>Queue + workflow engine</b></td><td>Realtime and saver lanes, retries, cron</td><td>Temporal / BullMQ + Redis</td><td>Inngest / Trigger.dev</td></tr>
+    <tr><td>14</td><td><b>Media pipeline</b></td><td>Download outputs, transcode, posters, thumbnails</td><td>ffmpeg workers</td><td>Cloudflare Stream / Mux</td></tr>
+    <tr><td>15</td><td><b>Moderation</b></td><td>Prompt and output checks, blocklists</td><td>Open classifiers on workers</td><td>Vendor moderation + Hive / OpenAI moderation</td></tr>
+    <tr><td>16</td><td>Store connectors</td><td>Shopify app, WooCommerce webhooks</td><td colspan="2">Service plus OAuth apps</td></tr>
+    <tr><td>17</td><td>Social publishing</td><td>TikTok / IG draft uploads</td><td colspan="2">Platform APIs (app review needed)</td></tr>
+    <tr><td>18</td><td>Open-weights GPU lane</td><td>Cheap Saver-queue video and images</td><td>Owned GPUs (later)</td><td>RunPod / Modal / Lambda on demand</td></tr>
+  </table>
+</section>
+
+<section class="page">
+  <div class="eyebrow">5 · continued</div>
+  <table>
+    <tr><th>#</th><th>Component</th><th>Job</th><th>Self-hosted (A)</th><th>Managed (B)</th></tr>
+    <tr><td colspan="5" class="mono" style="background:#fff;font-weight:600;font-size:7.5pt">DATA</td></tr>
+    <tr><td>19</td><td><b>Postgres</b></td><td>Users, ledger, jobs, workflows</td><td>Postgres 16 + streaming replica + pgBackRest</td><td>Supabase / Neon</td></tr>
+    <tr><td>20</td><td><b>Redis</b></td><td>Rate limits, locks, sessions, queue</td><td>Redis / Valkey</td><td>Upstash</td></tr>
+    <tr><td>21</td><td><b>Object storage</b></td><td>Uploads and generated media</td><td>MinIO (or keep R2)</td><td>Cloudflare R2 ($0.015/GB-mo, no egress fees) <span class="tag c">CERTAIN</span></td></tr>
+    <tr><td>22</td><td><b>Video delivery</b></td><td>Fast playback of site loops and user videos</td><td>R2 + CDN, self-encoded MP4/WebM</td><td>Cloudflare Stream ($5/1k min stored, $1/1k min delivered) <span class="tag c">CERTAIN</span></td></tr>
+    <tr><td>23</td><td>Search</td><td>Library search</td><td>Postgres full-text / Meilisearch</td><td>Same</td></tr>
+    <tr><td colspan="5" class="mono" style="background:#fff;font-weight:600;font-size:7.5pt">MONEY</td></tr>
+    <tr><td>24</td><td><b>Billing</b></td><td>Plans, founders, top-ups, tax, portal</td><td colspan="2">Stripe (always managed)</td></tr>
+    <tr><td>25</td><td><b>Fraud</b></td><td>Card testing, free-trial farming</td><td colspan="2">Stripe Radar + Turnstile + phone/card checks</td></tr>
+    <tr><td>26</td><td>Banking</td><td>Operating / Reserve / Unearned accounts</td><td colspan="2">Business bank with sub-accounts (§2.4)</td></tr>
+    <tr><td colspan="5" class="mono" style="background:#fff;font-weight:600;font-size:7.5pt">OPERATIONS</td></tr>
+    <tr><td>27</td><td><b>CI/CD</b></td><td>Tests, profit check, deploys</td><td colspan="2">GitHub Actions</td></tr>
+    <tr><td>28</td><td>Infrastructure as code</td><td>Rebuild servers from scratch</td><td>Terraform + Ansible / Coolify</td><td>Mostly vendor dashboards</td></tr>
+    <tr><td>29</td><td><b>Secrets</b></td><td>API keys for every vendor</td><td>Vault / SOPS</td><td>Doppler / 1Password / platform env vars</td></tr>
+    <tr><td>30</td><td><b>Errors + logs + metrics</b></td><td>Know when something breaks</td><td>Grafana + Prometheus + Loki</td><td>Sentry + Better Stack / Axiom</td></tr>
+    <tr><td>31</td><td><b>Uptime + status page</b></td><td>Public status, alerts</td><td>Uptime Kuma</td><td>Better Stack / Instatus</td></tr>
+    <tr><td>32</td><td><b>Backups</b></td><td>Database point-in-time restore, media</td><td>pgBackRest → off-site bucket</td><td>Included (check retention)</td></tr>
+    <tr><td>33</td><td>Product analytics</td><td>Funnels, retention</td><td>PostHog self-hosted</td><td>PostHog Cloud (free tier)</td></tr>
+    <tr><td>34</td><td><b>Email</b></td><td>Receipts, alerts, login links</td><td>Postfix (not recommended)</td><td>Resend / Postmark</td></tr>
+    <tr><td>35</td><td>Support</td><td>Help desk, docs bot</td><td>Chatwoot</td><td>Crisp / Intercom</td></tr>
+    <tr><td colspan="5" class="mono" style="background:#fff;font-weight:600;font-size:7.5pt">LEGAL &amp; TRUST</td></tr>
+    <tr><td>36</td><td><b>Policies</b></td><td>Terms, privacy, refund, founder terms, DMCA agent</td><td colspan="2">Lawyer-reviewed documents. Founder terms say "credits, not equity."</td></tr>
+    <tr><td>37</td><td><b>Audit log</b></td><td>Every job, agent call and spend</td><td colspan="2">Postgres append-only + export</td></tr>
+  </table>
+  <p class="footer-note">23 bold components are needed for launch. The 14 others can follow within the first 90 days.</p>
+</section>
+
+<!-- ============ 6. OPTION A ============ -->
+<section class="page">
+  <div class="eyebrow">6 · Option A</div>
+  <h2>Running the studio <em>on our own servers.</em></h2>
+  <p class="lede">A small dedicated-server cluster behind Cloudflare. Billing, email and the AI vendors stay external, because nobody self-hosts those.</p>
+  <svg viewBox="0 0 720 250" width="100%" role="img" aria-label="Option A topology: Cloudflare in front of two app nodes, a database primary and replica, a worker node, object storage, and on-demand GPU cloud">
+    <g font-size="10.5">
+      <rect x="10" y="100" width="110" height="50" rx="6" fill="#e3e8fb" stroke="#3554d1"/><text x="65" y="122" text-anchor="middle" font-weight="600">Cloudflare</text><text x="65" y="137" text-anchor="middle" font-size="9" fill="#5d574d">CDN · WAF · tunnel</text>
+      <rect x="160" y="40" width="140" height="50" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="230" y="62" text-anchor="middle" font-weight="600">App node 1</text><text x="230" y="77" text-anchor="middle" font-size="9" fill="#5d574d">web · API · MCP</text>
+      <rect x="160" y="160" width="140" height="50" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="230" y="182" text-anchor="middle" font-weight="600">App node 2</text><text x="230" y="197" text-anchor="middle" font-size="9" fill="#5d574d">web · API · Redis</text>
+      <rect x="340" y="40" width="150" height="50" rx="6" fill="#e2f1e4" stroke="#2f7d3b"/><text x="415" y="62" text-anchor="middle" font-weight="600">DB primary</text><text x="415" y="77" text-anchor="middle" font-size="9" fill="#5d574d">Postgres · ledger</text>
+      <rect x="340" y="160" width="150" height="50" rx="6" fill="#e2f1e4" stroke="#2f7d3b"/><text x="415" y="182" text-anchor="middle" font-weight="600">DB replica</text><text x="415" y="197" text-anchor="middle" font-size="9" fill="#5d574d">hot standby · backups</text>
+      <rect x="530" y="40" width="180" height="50" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="620" y="62" text-anchor="middle" font-weight="600">Worker node</text><text x="620" y="77" text-anchor="middle" font-size="9" fill="#5d574d">queue · ffmpeg · router</text>
+      <rect x="530" y="110" width="180" height="40" rx="6" fill="#fff" stroke="#ddd6c9"/><text x="620" y="134" text-anchor="middle">R2 / MinIO object storage</text>
+      <rect x="530" y="170" width="180" height="40" rx="6" fill="#fbefd9" stroke="#a86400"/><text x="620" y="194" text-anchor="middle">AI vendors + GPU cloud</text>
+      <g stroke="#b8b0a2"><path d="M120 125L160 65"/><path d="M120 125L160 185"/><path d="M300 65H340"/><path d="M300 185H340"/><path d="M415 90V160" stroke-dasharray="3 3"/><path d="M490 65H530"/><path d="M620 90V110"/><path d="M620 150V170"/></g>
+    </g>
+  </svg>
+  <table>
+    <tr><th>Server</th><th>Class (example)</th><th>Spec</th><th class="n">≈ Monthly</th></tr>
+    <tr><td>App node × 2</td><td>Hetzner AX42/AX52 class</td><td>8 cores · 64 GB · NVMe</td><td class="n">€65–80 each <span class="tag g">GUESSING</span></td></tr>
+    <tr><td>DB primary + replica</td><td>Hetzner AX102 class</td><td>16 cores · 128 GB · NVMe RAID</td><td class="n">€125–135 each <span class="tag l">LIKELY</span></td></tr>
+    <tr><td>Worker node</td><td>AX52 class</td><td>ffmpeg, queue workers</td><td class="n">€65–80 <span class="tag g">GUESSING</span></td></tr>
+    <tr><td>Backups</td><td>Off-site bucket / storage box</td><td>Database PITR + configs</td><td class="n">€10–25</td></tr>
+    <tr><td>GPU for open-weights video</td><td>Rented H100 / L40S hourly</td><td>Saver queue only, scales to zero</td><td class="n">usage-based</td></tr>
+    <tr><td><b>Total hardware</b></td><td></td><td></td><td class="n"><b>≈ €450–550</b></td></tr>
+  </table>
+  <div class="grid2">
+    <div class="box"><h3>You have to operate</h3><ul><li>OS patching and security updates</li><li>Database failover drills and restore tests</li><li>On-call when a node dies at 3 a.m.</li><li>Capacity planning and hardware swaps</li></ul><p><b>The real cost is the person:</b> a part-time DevOps contractor or a strong backend engineer.</p></div>
+    <div class="box"><h3>Worth it when…</h3><ul><li>Managed bills pass about $1.5–2k/mo <span class="tag g">GUESSING</span></li><li>Video transcoding volume is steady and high</li><li>You run open-weights models 24/7</li><li>You've raised money to hire the operator</li></ul><p>Hetzner raised prices in April and June 2026. Re-quote before you order. <span class="tag l">LIKELY</span></p></div>
+  </div>
+</section>
+
+<!-- ============ 7. OPTION B ============ -->
+<section class="page">
+  <div class="eyebrow">7 · Option B</div>
+  <h2>Running the studio <em>on managed hosting.</em></h2>
+  <p class="lede">Every component rented from a platform that runs it for you. Fastest to launch and cheapest at low volume. The cost grows with usage.</p>
+  <table>
+    <tr><th>Layer</th><th>Service</th><th class="n">Launch</th><th class="n">~1,000 subs</th></tr>
+    <tr><td>Site + web app</td><td>Vercel (Pro)</td><td class="n">$20</td><td class="n">$20–150</td></tr>
+    <tr><td>Database + auth</td><td>Supabase Pro (or Neon + Clerk)</td><td class="n">$25</td><td class="n">$60–200</td></tr>
+    <tr><td>Queue + workflows + cron</td><td>Inngest / Trigger.dev</td><td class="n">$0</td><td class="n">$50–150</td></tr>
+    <tr><td>Redis</td><td>Upstash</td><td class="n">$0</td><td class="n">$10–40</td></tr>
+    <tr><td>API / MCP / bots</td><td>Fly.io or Railway</td><td class="n">$5–20</td><td class="n">$30–100</td></tr>
+    <tr><td>Media storage</td><td>Cloudflare R2</td><td class="n">$0–5</td><td class="n">$15/TB</td></tr>
+    <tr><td>Video delivery</td><td>Cloudflare Stream</td><td class="n">$5</td><td class="n">see §9</td></tr>
+    <tr><td>Errors, logs, uptime</td><td>Sentry + Better Stack</td><td class="n">$0</td><td class="n">$30–80</td></tr>
+    <tr><td>Email, analytics, support</td><td>Resend · PostHog · Crisp</td><td class="n">$0</td><td class="n">$20–100</td></tr>
+    <tr><td><b>Total platform</b></td><td></td><td class="n"><b>≈ $55–75/mo</b></td><td class="n"><b>≈ $250–850/mo</b></td></tr>
+  </table>
+  <p class="footer-note">Platform list prices <span class="tag l">LIKELY</span> from published plans. Verify them at signup. Payment fees (2.9% + 30¢) and AI vendor costs are separate and already modeled in <span class="mono">economics.py</span>.</p>
+  <div class="grid2">
+    <div class="box ok"><h3>Why start here</h3><ul><li>Live in weeks, with no operations hire</li><li>Scales to zero when nobody is using it</li><li>Backups, failover and TLS are handled for you</li><li>At 1,000 subs this is about 0.5% of MRR</li></ul></div>
+    <div class="box"><h3>Watch out for</h3><ul><li>Bandwidth fees on video. Keep media on R2 or Stream, never on Vercel.</li><li>Function timeouts. Long jobs belong in the queue, not in API routes.</li><li>Lock-in. Keep the ledger as plain Postgres so it can move.</li></ul></div>
+  </div>
+  <div class="box cool"><h3>Recommendation: B now, hybrid at about $1.5k/mo, A for the heavy pieces after the raise</h3>
+  <p>Move in this order, one at a time: <b>(1)</b> ffmpeg and media workers, <b>(2)</b> open-weights GPU inference, <b>(3)</b> Postgres. The web app, edge, billing and email can stay managed forever.</p></div>
+</section>
+
+<!-- ============ 8. STAGES ============ -->
+<section class="page">
+  <div class="eyebrow">8 · Ways to run the site until we can fully support it ourselves</div>
+  <h2>Borrow first, <em>own later.</em></h2>
+  <p class="lede">Each stage has a clear trigger to move to the next. You can launch at Stage 0 this week.</p>
+
+  <svg viewBox="0 0 720 120" width="100%" role="img" aria-label="Four stages from borrowed tools to own servers, with triggers">
+    <g font-size="10">
+      <g><rect x="0" y="10" width="170" height="70" rx="8" fill="#f9e2d6" stroke="#d24f1a"/><text x="85" y="34" text-anchor="middle" font-weight="600">Stage 0 · Borrowed</text><text x="85" y="50" text-anchor="middle" font-size="9" fill="#5d574d">waitlist + concierge</text><text x="85" y="64" text-anchor="middle" font-size="9" fill="#5d574d">$0–50/mo</text></g>
+      <g><rect x="183" y="10" width="170" height="70" rx="8" fill="#fff" stroke="#ddd6c9"/><text x="268" y="34" text-anchor="middle" font-weight="600">Stage 1 · Managed MVP</text><text x="268" y="50" text-anchor="middle" font-size="9" fill="#5d574d">Option B stack</text><text x="268" y="64" text-anchor="middle" font-size="9" fill="#5d574d">$55–300/mo</text></g>
+      <g><rect x="366" y="10" width="170" height="70" rx="8" fill="#fff" stroke="#ddd6c9"/><text x="451" y="34" text-anchor="middle" font-weight="600">Stage 2 · Hybrid</text><text x="451" y="50" text-anchor="middle" font-size="9" fill="#5d574d">own workers + GPU</text><text x="451" y="64" text-anchor="middle" font-size="9" fill="#5d574d">$500–1.5k/mo</text></g>
+      <g><rect x="549" y="10" width="170" height="70" rx="8" fill="#e3e8fb" stroke="#3554d1"/><text x="634" y="34" text-anchor="middle" font-weight="600">Stage 3 · Own servers</text><text x="634" y="50" text-anchor="middle" font-size="9" fill="#5d574d">Option A + managed edge</text><text x="634" y="64" text-anchor="middle" font-size="9" fill="#5d574d">post-raise</text></g>
+      <g font-size="8.5" fill="#5d574d" font-family="JetBrains Mono"><text x="85" y="104" text-anchor="middle">→ 100 seats saved</text><text x="268" y="104" text-anchor="middle">→ $1.5k/mo infra</text><text x="451" y="104" text-anchor="middle">→ raise + ops hire</text></g>
+    </g>
+  </svg>
+
+  <h3>Stage 0: launch this week on borrowed tools ($0–50/mo)</h3>
+  <table>
+    <tr><th>Option</th><th>What it does for us</th><th>Limits</th></tr>
+    <tr><td><b>Static site on Cloudflare Pages or Vercel (free)</b></td><td>Host the designed home and founders pages today, unchanged</td><td>No accounts yet</td></tr>
+    <tr><td><b>Existing Hglif3.com WordPress</b> (connector already live)</td><td>Waitlist page and blog on a site you already run. Zero new hosting.</td><td>Ties the brand to Hglif3 until we move</td></tr>
+    <tr><td>Framer or Webflow</td><td>Visual editing for the marketing site without a developer</td><td>Weak for app logic. Marketing only.</td></tr>
+    <tr><td><b>Stripe Checkout in setup mode / Payment Links</b></td><td>Save founder cards now, charge at launch (rule R6)</td><td>Manual seat tracking at first</td></tr>
+    <tr><td>Tally / Typeform + Airtable</td><td>Waitlist, onboarding survey, seat counter source</td><td>Data moves into Postgres later</td></tr>
+    <tr><td><b>Concierge generation</b></td><td>Beta users submit briefs. We run them on fal, the Higgsfield API or Higgsfield's MCP inside Claude, and deliver by link.</td><td>Doesn't scale past ~50 users, but proves what people pay for</td></tr>
+    <tr><td>Discord server</td><td>Community, support and the founders room, with nothing to build</td><td>—</td></tr>
+    <tr><td>Higgsfield / fal web apps</td><td>Make launch videos for the hero wall and social posts now</td><td>Check their commercial-use terms</td></tr>
+  </table>
+
+  <h3>Stage 1: managed MVP (weeks 2–12)</h3>
+  <ul>
+    <li>Option B stack (§7), with <b>one vendor (fal)</b> covering most models at launch. Add Google direct for Nano Banana and Veo (monthly invoice float), then BytePlus.</li>
+    <li>Use <b>Stripe Customer Portal</b> instead of building a billing UI, and Clerk or Supabase for auth instead of building login.</li>
+    <li>MCP server and agent keys on Fly.io. Bots come later.</li>
+  </ul>
+  <h3>Stage 2: hybrid (from ~$1.5k/mo infra or steady video volume)</h3>
+  <ul><li>One or two dedicated worker servers for ffmpeg and the queue. On-demand GPU for open-weights Saver-queue jobs. Database stays managed.</li></ul>
+  <h3>Stage 3: own servers (after the raise)</h3>
+  <ul><li>Option A for compute and database, with Cloudflare, Stripe, email and the vendors still external. Hire the operator before migrating the database, not after.</li></ul>
+</section>
+
+<!-- ============ 9. FAST VIDEO ============ -->
+<section class="page">
+  <div class="eyebrow">9 · Video-heavy and fast</div>
+  <h2>Higgsfield-style conversion <em>without the slow site.</em></h2>
+  <p class="lede">Sites full of autoplaying video are slow because they download every clip on page load. The fix is to load almost nothing up front and stream only what's on screen.</p>
+
+  <h3>9.1 Patterns worth borrowing (and the ones we skip)</h3>
+  <div class="grid3">
+    <div class="wire"><div class="lbl">Autoplay showcase wall</div><div class="tiles"><i><b>NEW</b></i><i></i><i><b>NEW</b></i><i></i></div><p><span class="tag l">LIKELY</span> Their gallery format. <b>We use it:</b> founders wall, home hero.</p></div>
+    <div class="wire"><div class="lbl">Strike-through + "Best value"</div><div class="mini-price"><div><s>$149</s><br><b>$129</b></div><div class="f"><b>BEST VALUE</b><br><s>$129</s> $99</div><div><s>$49</s><br>$39</div></div><p><span class="tag c">CERTAIN</span> In their live config. <b>We use it:</b> founder vs regular.</p></div>
+    <div class="wire"><div class="lbl">Live counters + sticky CTA</div><div style="background:#15130f;color:#fff;border-radius:20pt;padding:5pt 8pt;font-size:7.5pt;display:flex;justify-content:space-between"><span><b style="color:#ff7a45">8,996</b> seats left</span><span style="background:#d24f1a;border-radius:10pt;padding:1pt 6pt">Claim</span></div><p><b>We use it,</b> with a <b>live</b> database count only.</p></div>
+    <div class="wire"><div class="lbl">Deadline badges</div><div style="font:600 8pt 'JetBrains Mono';color:#a86400">BUY UNTIL OCT 30</div><p><span class="tag c">CERTAIN</span> Theirs. <b>We use it only for real deadlines</b> (seat count, launch date).</p></div>
+    <div class="wire"><div class="lbl">"Unlimited" badges</div><div style="font:600 8pt 'JetBrains Mono';color:#a86400;text-decoration:line-through">365 UNLIMITED</div><p><span class="tag c">CERTAIN</span> Theirs, with time and model limits. <b>We skip it:</b> it breaks our honesty promise.</p></div>
+    <div class="wire"><div class="lbl">Auto-refill by default</div><div style="font:600 8pt 'JetBrains Mono';color:#a86400;text-decoration:line-through">TURN ON AUTO-REFILL</div><p><span class="tag c">CERTAIN</span> Theirs. <b>We make it opt-in</b>, with a monthly cap.</p></div>
+  </div>
+
+  <h3>9.2 The loading rules (already built into <span class="mono">founders.html</span>)</h3>
+  <ol>
+    <li><b>Poster first.</b> Every tile ships a small AVIF/WebP poster (≤ 40 KB). The video element has <span class="mono">preload="none"</span> and no src until needed.</li>
+    <li><b>Play only what's visible.</b> An IntersectionObserver attaches the src and plays when a tile is 40% on screen, and pauses when it scrolls away.</li>
+    <li><b>At most 3 playing at once.</b> Phones choke on more.</li>
+    <li><b>Respect the user.</b> Reduced-motion or data-saver users get posters only.</li>
+    <li><b>Short loops.</b> 3–6 seconds, muted, 9:16 at 480×854, H.264 for compatibility plus AV1/VP9 WebM (~30–40% smaller <span class="tag l">LIKELY</span>). Target 300–600 KB per loop.</li>
+    <li><b>HLS only for long videos</b> (over 15 s, or user-generated content in the library): adaptive bitrate through Stream, Mux or Bunny.</li>
+    <li><b>Cache forever.</b> Content-hashed filenames, served from the CDN edge with <span class="mono">Cache-Control: immutable</span>.</li>
+  </ol>
+</section>
+
+<section class="page">
+  <div class="eyebrow">9 · continued</div>
+  <h3 style="margin-top:0">9.3 Performance budget</h3>
+  <table>
+    <tr><th>Metric</th><th class="n">Budget</th><th>How</th></tr>
+    <tr><td>Largest Contentful Paint (4G phone)</td><td class="n">≤ 2.5 s</td><td>Text headline is the LCP element. The hero poster loads at priority.</td></tr>
+    <tr><td>Initial page weight</td><td class="n">≤ 1.5 MB</td><td>Posters only. No video bytes before the first scroll.</td></tr>
+    <tr><td>JavaScript</td><td class="n">≤ 100 KB</td><td>The marketing pages are static HTML. The app bundle loads only in /app.</td></tr>
+    <tr><td>Cumulative Layout Shift</td><td class="n">≤ 0.05</td><td>Fixed aspect-ratio tiles</td></tr>
+    <tr><td>Videos playing at once</td><td class="n">≤ 3</td><td>Enforced in the wall script</td></tr>
+  </table>
+
+  <h3>9.4 What delivering the site's videos costs</h3>
+  <p><span class="tag c">CERTAIN math</span> on Cloudflare's published rates. Example: 100,000 visitors a month, each watching 8 six-second loops, is 80,000 minutes delivered.</p>
+  <table>
+    <tr><th>Option</th><th>Storage</th><th>Delivery</th><th class="n">≈ Monthly at 100k visitors</th><th>Notes</th></tr>
+    <tr><td><b>R2 + Cloudflare CDN</b>, self-encoded</td><td>$0.015/GB-mo</td><td>No egress fees</td><td class="n">≈ $1–5</td><td>Cheapest. We run ffmpeg once per clip.</td></tr>
+    <tr><td>Cloudflare Stream</td><td>$5 / 1,000 min</td><td>$1 / 1,000 min</td><td class="n">≈ $80</td><td>Encoding and HLS included. Easiest.</td></tr>
+    <tr><td>Mux / Bunny Stream</td><td>per minute / GB</td><td>per minute / GB</td><td class="n">varies</td><td>Better analytics (Mux), cheaper bandwidth (Bunny) <span class="tag l">LIKELY</span></td></tr>
+    <tr><td>Vercel / app server bandwidth</td><td>—</td><td>metered bandwidth</td><td class="n">expensive</td><td><b>Never serve video from here.</b></td></tr>
+  </table>
+  <div class="box ok"><h3>Recommendation</h3><p>Marketing loops: <b>R2 + CDN</b>, encoded once by our own ffmpeg step (a few dollars a month). User-generated videos in the app: <b>Cloudflare Stream</b> until volume justifies self-encoding (Stage 2).</p></div>
+
+  <h3>9.5 Encoding presets for site loops</h3>
+  <table>
+    <tr><th>Output</th><th>Command (ffmpeg)</th></tr>
+    <tr><td>MP4 / H.264</td><td class="mono" style="font-size:7.4pt">ffmpeg -i in.mp4 -t 6 -vf scale=480:-2 -an -c:v libx264 -crf 28 -preset slow -movflags +faststart loop.mp4</td></tr>
+    <tr><td>WebM / AV1</td><td class="mono" style="font-size:7.4pt">ffmpeg -i in.mp4 -t 6 -vf scale=480:-2 -an -c:v libsvtav1 -crf 38 loop.webm</td></tr>
+    <tr><td>Poster</td><td class="mono" style="font-size:7.4pt">ffmpeg -i in.mp4 -frames:v 1 -vf scale=480:-2 poster.avif</td></tr>
+  </table>
+</section>
+
+<!-- ============ 10. VISUAL REFERENCES ============ -->
+<section class="page">
+  <div class="eyebrow">10 · Visual references</div>
+  <h2>What we've designed <em>so far.</em></h2>
+  <p class="lede">Screens from the repo (<span class="mono">ventures/video-broker/site</span> and <span class="mono">dashboards</span>). Gradient tiles are placeholders for real generated clips.</p>
+  <figure style="width:84%;margin-inline:auto"><img src="img/home-hero.jpg" alt="Home page hero with headline, receipt card and three video frames"><figcaption>Home · hero. The receipt card is the brand signature: every job's cost is shown.</figcaption></figure>
+  <figure style="width:84%;margin-inline:auto"><img src="img/founders-hero.jpg" alt="Founders page hero with live seat counter and autoplay showcase wall"><figcaption>Founders · seat counter, autoplay showcase wall (Higgsfield-style), sticky call-to-action.</figcaption></figure>
+</section>
+
+<section class="page">
+  <div class="eyebrow">10 · continued</div>
+  <div class="grid2">
+    <figure><img src="img/home-pricing.jpg" alt="Home page pricing section with founder toggle"><figcaption>Home · pricing with Monthly / Annual / Founding Member toggle.</figcaption></figure>
+    <figure><img src="img/founders-calc.jpg" alt="Kickback calculator"><figcaption>Founders · kickback calculator: plan, usage and tenure → credits back.</figcaption></figure>
+    <figure><img src="img/dash-user.jpg" alt="User dashboard"><figcaption>App · user dashboard: balance breakdown, live quote, receipts.</figcaption></figure>
+    <figure><img src="img/dash-owner.jpg" alt="Owner dashboard"><figcaption>App · owner dashboard: MRR, margin by model, founding seats, CAC tests.</figcaption></figure>
+  </div>
+  <figure style="max-width:50%"><img src="img/dash-agents.jpg" alt="Agent back office"><figcaption>App · agent back office: keys, caps, task queue, audit log.</figcaption></figure>
+</section>
+
+<!-- ============ 11. CHECKLIST ============ -->
+<section class="page">
+  <div class="eyebrow">11 · Launch checklist</div>
+  <h2>In order, <em>nothing skipped.</em></h2>
+  <div class="grid2">
+    <div>
+      <h3>Week 0–1 · Stage 0</h3>
+      <ul>
+        <li>☐ Put the home and founders pages on Cloudflare Pages</li>
+        <li>☐ Stripe account, plus setup-mode checkout for founder card saves</li>
+        <li>☐ Business bank with Operating / Reserve / Unearned accounts</li>
+        <li>☐ Founder terms reviewed by a lawyer ("credits, not equity")</li>
+        <li>☐ fal account plus Higgsfield API wallet for concierge jobs</li>
+        <li>☐ Make 12 real hero loops, encoded with §9.5</li>
+        <li>☐ Discord server and founders room</li>
+      </ul>
+      <h3>Weeks 2–6 · Stage 1 build</h3>
+      <ul>
+        <li>☐ Option B accounts: Vercel, Supabase, Inngest, R2, Sentry</li>
+        <li>☐ Ledger plus pricing service, with the profit check in CI</li>
+        <li>☐ fal adapter, then Google, with failover</li>
+        <li>☐ Stripe webhooks → ledger grants. Customer Portal.</li>
+        <li>☐ Wallet runway alarm (rule R3)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Weeks 7–12 · Stage 1 launch</h3>
+      <ul>
+        <li>☐ Automate tab with 5 templates. Shopify connector.</li>
+        <li>☐ MCP server plus agent keys with caps</li>
+        <li>☐ Moderation on every prompt and output. Audit log.</li>
+        <li>☐ Live seat counter from the database</li>
+        <li>☐ Status page, uptime alerts, backup restore test</li>
+        <li>☐ Charge saved founder cards on launch day</li>
+        <li>☐ Founder float in place ($5–10k, §2.3)</li>
+      </ul>
+      <h3>After launch</h3>
+      <ul>
+        <li>☐ Weekly: vendor price check → pricing.json → CI</li>
+        <li>☐ Monthly: kickbacks issued, unearned cash released</li>
+        <li>☐ At ~$1.5k/mo infra: plan Stage 2</li>
+        <li>☐ Capital raise → committed vendor contracts → paid acquisition</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Sources</h3>
+  <ul style="font-size:8pt">
+    <li>Higgsfield live plans and pricing config (badges, deadlines, auto-refill, unlimited offers): Higgsfield MCP server, show_plans_and_credits, 2026-10-29</li>
+    <li>Stripe payout timing: support.stripe.com/questions/common-questions-about-payout-schedules · stripe.com/us/resources/more/payouts-explained</li>
+    <li>Cloudflare Stream pricing: developers.cloudflare.com/stream/pricing · R2 pricing: developers.cloudflare.com/r2/pricing</li>
+    <li>Hetzner pricing and 2026 adjustments: docs.hetzner.com/general/infrastructure-and-availability/price-adjustment · heise.de/-11185981 · achromatic.dev/blog/hetzner-server-comparison</li>
+    <li>Higgsfield API billing: mindstudio.ai/blog/higgsfield-api-pricing-pay-per-use · layer3labs.io/guides/higgsfield-api</li>
+    <li>Wholesale model prices and plan math: ventures/video-broker/model/pricing.json and economics.py (sources listed there)</li>
+  </ul>
+</section>
+
+</body>
+</html>

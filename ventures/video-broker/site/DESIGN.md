@@ -1,6 +1,6 @@
 # Website design: v0.1
 
-`index.html` is the home page design. It's a single static file you can open in a
+`index.html` (home) and `founders.html` are designed. Shared tokens and components live in `styles.css`. It's a single static file you can open in a
 browser, with light and dark mode and widths down to 360px. This doc is the system it's
 built on and the plan for the remaining pages.
 
@@ -44,7 +44,7 @@ Radius is 14px on cards and pills on buttons. Use one primary CTA per view.
 |---|---|---|
 | Home `/` | **designed** | This file |
 | Pricing `/pricing` | in home | Split out with a full feature matrix + top-up calculator |
-| Founders `/founders` | next | Live seat counter, kickback calculator, terms (lawyer-reviewed) |
+| Founders `/founders` | **designed** | `founders.html`: seat counter, autoplay showcase wall, kickback calculator, rules, sticky CTA |
 | Models `/models` | next | Live credit price per model from `pricing.json`, provider terms links |
 | Automate `/automate` | next | Template gallery: store ads, UGC, weekly content |
 | For agents `/agents` | next | MCP connector setup, REST docs, spend-cap explainer |
@@ -60,3 +60,5 @@ Radius is 14px on cards and pills on buttons. Use one primary CTA per view.
 - Comparison-table claims need a dated source. Keep the footnote.
 - Use real generated outputs in the hero frames (the gradients are placeholders). Make
   them with the product itself.
+- Founders copy must stay honest about value. At full use and the top 20% rate, kickbacks are worth about three-quarters of the founder premium; the price lock and perks are the rest. Never say "paid back" or imply cash.
+- Video loops follow the loading rules in `../infra/infrastructure-plan.html` §9: poster first, play only on screen, max 3 at once.

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founding Members</title>
+<meta name="description" content="The first 10,000 subscribers lock their price for life and get up to 20% of their credit spend back every month.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Founders page only. Shared tokens and components live in styles.css. */
+.f-hero{padding:56px 0 40px;text-align:center}
+@media(min-width:900px){.f-hero{padding:88px 0 56px}}
+.f-hero h1{font-size:clamp(42px,7.5vw,88px);font-weight:600;max-width:14ch;margin:16px auto 0}
+.f-hero .lede{margin:22px auto 0;text-align:center}
+.counter{margin:36px auto 0;max-width:560px}
+.counter-num{font:600 clamp(44px,7vw,72px)/1 "Inter Tight",sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.counter-num span{color:var(--accent)}
+.counter .seats{height:10px;background:var(--bg-2);margin-top:16px}
+.counter-meta{display:flex;justify-content:space-between;margin-top:8px;font:12.5px "JetBrains Mono",monospace;color:var(--muted)}
+.f-hero .hero-ctas{justify-content:center;margin-top:30px}
+
+/* Showcase wall: Higgsfield-style autoplay grid, built to stay fast (see wall script). */
+.wall{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:8px}
+@media(min-width:720px){.wall{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1100px){.wall{grid-template-columns:repeat(6,1fr)}}
+.tile{margin:0;position:relative;aspect-ratio:9/16;border-radius:12px;overflow:hidden;background:var(--bg-2)}
+.tile:nth-child(even){transform:translateY(18px)}
+.tile video,.tile .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55));pointer-events:none}
+.tile .meta{position:absolute;left:10px;right:10px;bottom:10px;z-index:1;color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:6px}
+.tile .meta b{font-size:13px;line-height:1.2;min-width:0}
+.tile .meta span{font:500 10.5px "JetBrains Mono",monospace;opacity:.85;white-space:nowrap}
+.tile .new{position:absolute;top:10px;left:10px;z-index:1;font:600 10.5px "JetBrains Mono",monospace;padding:3px 7px;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
+.g1{background:radial-gradient(90% 60% at 30% 25%,var(--frame-a),transparent 60%),linear-gradient(160deg,var(--frame-d),var(--frame-b))}
+.g2{background:radial-gradient(90% 60% at 70% 30%,var(--frame-c),transparent 60%),linear-gradient(200deg,var(--frame-b),var(--frame-a))}
+.g3{background:radial-gradient(90% 60% at 50% 70%,var(--frame-d),transparent 60%),linear-gradient(140deg,var(--frame-a),var(--frame-c))}
+.g4{background:radial-gradient(80% 60% at 40% 40%,var(--frame-b),transparent 60%),linear-gradient(180deg,var(--frame-c),var(--frame-d))}
+
+/* Calculator */
+.calc{display:grid;gap:16px}
+@media(min-width:960px){.calc{grid-template-columns:1fr 1.1fr;gap:24px}}
+.calc label{display:flex;justify-content:space-between;font-weight:600;font-size:15px;margin:18px 0 8px}
+.calc label:first-child{margin-top:0}
+.calc label output{font:500 13px "JetBrains Mono",monospace;color:var(--accent)}
+.calc input[type=range]{width:100%;accent-color:var(--accent)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;border-radius:12px;background:var(--bg-2)}
+.seg button{border:0;background:transparent;padding:10px 4px;border-radius:9px;font:600 14px "Inter Tight",sans-serif;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}
+.result{display:grid;gap:12px;align-content:start}
+.result .big-stat{font:600 clamp(40px,5vw,56px)/1 "Inter Tight",sans-serif;letter-spacing:-.03em;color:var(--accent)}
+.result .row2{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mini{background:var(--bg-2);border-radius:10px;padding:12px}
+.mini b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.mini span{font:12px "JetBrains Mono",monospace;color:var(--muted)}
+.bars{display:flex;align-items:flex-end;gap:3px;height:90px;margin-top:6px}
+.bars i{flex:1;background:var(--accent-soft);border-radius:3px 3px 0 0;min-height:2px}
+.bars i.now{background:var(--accent)}
+.bars-axis{display:flex;justify-content:space-between;font:11px "JetBrains Mono",monospace;color:var(--muted)}
+
+/* Ladder */
+.ladder-lg{display:grid;gap:12px}
+@media(min-width:860px){.ladder-lg{grid-template-columns:repeat(3,1fr)}}
+.rung{position:relative;padding-top:20px}
+.rung::before{content:"";position:absolute;left:24px;right:24px;top:0;height:4px;border-radius:2px;background:var(--accent);opacity:var(--o,1)}
+.rung .pct{font:600 48px/1 "Inter Tight",sans-serif;letter-spacing:-.03em;color:var(--accent)}
+
+/* Tier compare */
+.tiers td.n,.tiers th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tiers td:first-child{color:var(--ink);font-weight:600}
+
+/* Rules */
+.rules{display:grid;gap:12px}
+@media(min-width:860px){.rules{grid-template-columns:repeat(2,1fr)}}
+.rule{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start}
+.rule i{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:600 15px "JetBrains Mono",monospace;font-style:normal}
+.rule h3{font-size:17px;margin:4px 0 4px}
+.rule p{color:var(--muted);font-size:15px}
+.sticky-cta{position:fixed;left:12px;right:12px;bottom:12px;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 10px 10px 16px;border-radius:999px;background:var(--ink);color:var(--bg);box-shadow:var(--shadow);font-size:14px;transform:translateY(140%);transition:transform .25s ease}
+.sticky-cta.show{transform:none}
+.sticky-cta b{color:var(--accent)}
+@media(min-width:900px){.sticky-cta{left:auto;right:24px;bottom:24px;max-width:460px}}
+@media (prefers-reduced-motion: reduce){.sticky-cta{transition:none}.tile:nth-child(even){transform:none}}
+</style>
+</head>
+<body>
+
+<div class="founder-bar">
+  <b>Founding Member pricing:</b> <span class="js-left">8,996</span> of 10,000 seats left · price locked for life · <a href="#claim">Claim a seat</a>
+</div>
+
+<nav class="top" aria-label="Main">
+  <div class="wrap">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>Studio <small>name TBD</small></a>
+    <div class="links">
+      <a href="index.html#how">How it works</a><a href="index.html#automate">Automate</a><a href="index.html#agents">Agents</a><a href="index.html#pricing">Pricing</a><a href="founders.html" style="color:var(--ink)">Founders</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost signin" href="#">Sign in</a>
+      <a class="btn btn-primary" href="#claim">Claim a seat</a>
+    </div>
+  </div>
+</nav>
+
+<header class="f-hero">
+  <div class="wrap">
+    <div class="eyebrow">Founding Members · first 10,000 only</div>
+    <h1>Get in early. <em>Get credits back</em> every month.</h1>
+    <p class="lede">Founding Members lock their price for life and get up to 20% of their own credit spend back as bonus credits on the 1st of every month. When the 10,000 seats are gone, this offer is gone.</p>
+    <div class="counter" aria-live="polite">
+      <div class="counter-num"><span class="js-left">8,996</span> seats left</div>
+      <div class="seats"><i class="js-bar" style="width:10%"></i></div>
+      <div class="counter-meta"><span><span class="js-claimed">1,004</span> claimed</span><span>10,000 total · never reopened</span></div>
+    </div>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#claim">Claim a founder seat</a>
+      <a class="btn btn-ghost" href="#calc">See what you'd get back →</a>
+    </div>
+  </div>
+</header>
+
+<!-- Showcase wall. Each tile is poster-first; video loads only when on screen. -->
+<section style="padding:0 0 40px" aria-label="Made by Founding Members">
+  <div class="wall" id="wall">
+    <figure class="tile g1"><span class="new">NEW</span><video muted loop playsinline preload="none" data-src="" aria-hidden="true"></video><figcaption class="meta"><b>Hoodie spin</b><span>Kling 3.0</span></figcaption></figure>
+    <figure class="tile g2"><video muted loop playsinline preload="none" data-src="" aria-hidden="true"></video><figcaption class="meta"><b>Street lookbook</b><span>Nano Banana Pro</span></figcaption></figure>
+    <figure class="tile g3"><span class="new">NEW</span><video muted loop playsinline preload="none" data-src="" aria-hidden="true"></video><figcaption class="meta"><b>Sneaker drop</b><span>Seedance 2.0</span></figcaption></figure>
+    <figure class="tile g4"><video muted loop playsinline preload="none" data-src="" aria-hidden="true"></video><figcaption class="meta"><b>UGC review</b><span>Veo 3.1</span></figcaption></figure>
+    <figure class="tile g2"><video muted loop playsinline preload="none" data-src="" aria-hidden="true"></video><figcaption class="meta"><b>Perfume macro</b><span>Kling 3.0</span></figcaption></figure>
+    <figure class="tile g1"><video muted loop playsinline preload="none" data-src="" aria-hidden="true"></video><figcaption class="meta"><b>Café promo</b><span>Veo 3.1 Lite</span></figcaption></figure>
+  </div>
+</section>
+
+<section id="calc" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Kickback calculator</div>
+      <h2>See what comes back <em>to you.</em></h2>
+      <p class="lede">Kickbacks are a share of the credits you actually spent last month, paid as bonus credits. The longer you stay, the bigger the share.</p>
+    </div>
+    <div class="calc">
+      <div class="card">
+        <label>Plan</label>
+        <div class="seg" role="group" aria-label="Plan" id="plan-seg"></div>
+        <label for="use">How much of your credits you use <output id="use-out">70%</output></label>
+        <input type="range" id="use" min="10" max="100" step="5" value="70">
+        <label for="month">Months as a member <output id="month-out">month 8</output></label>
+        <input type="range" id="month" min="1" max="24" step="1" value="8">
+      </div>
+      <div class="card result" aria-live="polite">
+        <div class="eyebrow">This month you get back</div>
+        <div class="big-stat" id="kick">0 credits</div>
+        <div class="sub" id="kick-sub" style="color:var(--muted);font-size:14px"></div>
+        <div class="row2">
+          <div class="mini"><b id="eq-kling">0</b><span>Kling 3.0 clips</span></div>
+          <div class="mini"><b id="eq-nb">0</b><span>Nano Banana Pro</span></div>
+          <div class="mini"><b id="eq-total">0</b><span>credits back to date</span></div>
+        </div>
+        <div>
+          <div class="bars" id="bars" aria-hidden="true"></div>
+          <div class="bars-axis"><span>month 1</span><span>month 12</span><span>month 24</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The ladder</div>
+      <h2>Stay longer, <em>get more back.</em></h2>
+    </div>
+    <div class="ladder-lg">
+      <div class="card rung" style="--o:.45"><div class="pct">10%</div><h3>Months 1–6</h3><p>10% of last month's credit spend comes back on the 1st.</p></div>
+      <div class="card rung" style="--o:.7"><div class="pct">15%</div><h3>Months 7–12</h3><p>Your share rises automatically. Nothing to claim.</p></div>
+      <div class="card rung"><div class="pct">20%</div><h3>Month 13 onward</h3><p>The top rate, for as long as you stay subscribed.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg-2);padding-top:72px">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Founder vs regular</div>
+      <h2>What the founder price <em>buys you.</em></h2>
+      <p class="lede">You pay about 25% more than the regular price. In return, your price never goes up, your kickback grows to 20% of your spend, and you get founder-only perks.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="tiers">
+        <thead><tr><th>Plan</th><th class="n">Regular</th><th class="n">Founder</th><th class="n">Credits / mo</th><th class="n">Kickback at 20%*</th><th>Extras</th></tr></thead>
+        <tbody id="tier-rows"></tbody>
+      </table>
+    </div>
+    <p class="footnote">*If you spend your full monthly allowance, including the bonus pack. Kickback credits expire 60 days after they're issued.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Every founder gets</div>
+      <h2>More than <em>a discount.</em></h2>
+    </div>
+    <div class="promise">
+      <div class="card"><h3>Lifetime price lock</h3><p>Your founder price never rises while you stay subscribed, even when regular prices do.</p></div>
+      <div class="card"><h3>Founder badge</h3><p>On your profile, your shared links and the community leaderboard.</p></div>
+      <div class="card"><h3>A vote on models</h3><p>Founders vote each month on which new model we add next.</p></div>
+      <div class="card"><h3>Founders room</h3><p>A private Discord, a monthly call with the team and first look at new features.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The rules, in plain English</div>
+      <h2>No fine print. <em>Here's all of it.</em></h2>
+    </div>
+    <div class="rules">
+      <div class="rule"><i>1</i><div><h3>Kickbacks are credits, not cash</h3><p>They're bonus platform credits you can spend on any model. They can't be withdrawn, sold or transferred.</p></div></div>
+      <div class="rule"><i>2</i><div><h3>This is not an investment</h3><p>A founder seat is not equity or ownership, and kickbacks aren't tied to company revenue or profit. They depend only on your own usage.</p></div></div>
+      <div class="rule"><i>3</i><div><h3>Kickback credits last 60 days</h3><p>They're spent after your plan credits and expire 60 days after they arrive. Your regular credits keep the normal rollover rules.</p></div></div>
+      <div class="rule"><i>4</i><div><h3>Cancel and the lock ends</h3><p>You can cancel any time in one click. If you do, you give up your founder price and seat, and they don't come back.</p></div></div>
+      <div class="rule"><i>5</i><div><h3>Switch plans freely</h3><p>Move up or down between plans and keep founder pricing on each. Your tenure on the ladder carries over.</p></div></div>
+      <div class="rule"><i>6</i><div><h3>10,000 means 10,000</h3><p>The counter is live. When it hits zero, founder pricing closes for good.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="claim">
+  <div class="wrap">
+    <div class="head" style="margin-inline:auto;text-align:center">
+      <div class="eyebrow">Claim your seat</div>
+      <h2>Pick your plan. <em>Lock it in.</em></h2>
+      <p class="lede" style="margin-inline:auto">Start with a 7-day trial for $1. Your founder price starts on day 8, and you can cancel before then at no cost.</p>
+    </div>
+    <div class="plans" id="claim-plans"></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">FAQ</div><h2>Questions</h2></div>
+    <details><summary>Why pay more than the regular price?</summary><p>Three reasons: your price never goes up while regular prices can, you get a growing share of your spend back, and you get founder-only perks. To be straight about the math: at full use and the top 20% rate, kickbacks are worth roughly three-quarters of the founder premium in credit value. The price lock and perks are the rest of the deal.</p></details>
+    <details><summary>When do I get my first kickback?</summary><p>On the 1st of the month after your first full billing month. It's based on the credits you spent in that month.</p></details>
+    <details><summary>Do kickback credits count toward the next kickback?</summary><p>No. Kickbacks are calculated on plan, bonus pack and top-up credits you spend, not on kickback credits.</p></details>
+    <details><summary>What if I pause or my card fails?</summary><p>You have a 14-day grace period to fix a failed payment and keep your seat. After that the seat is released.</p></details>
+    <details><summary>Is this available outside the US?</summary><p>Yes. Prices are in USD and local tax may apply.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 · name TBD · Founding Member terms</span>
+    <nav aria-label="Footer"><a href="index.html#pricing">Pricing</a><a href="#">Founder terms</a><a href="#">Terms</a><a href="#">Refund policy</a></nav>
+  </div>
+</footer>
+
+<div class="sticky-cta" id="sticky" aria-hidden="true"><span><b class="js-left">8,996</b> founder seats left</span><a class="btn btn-primary" href="#claim" tabindex="-1">Claim a seat</a></div>
+
+<script>
+// Mirrors model/pricing.json → plans, founders.prices_usd, founders.kickback_schedule.
+const PLANS = [
+  { id: "starter", name: "Starter", regular: 75,  founder: 95,  credits: 6000,  bonus: 0,    extras: "Every model · 25 automations" },
+  { id: "pro",     name: "Pro",     regular: 149, founder: 189, credits: 12500, bonus: 1000, extras: "Bonus pack · priority queue" },
+  { id: "studio",  name: "Studio",  regular: 299, founder: 379, credits: 26000, bonus: 3000, extras: "Early models · exclusive templates" },
+  { id: "elite",   name: "Elite",   regular: 599, founder: 749, credits: 54000, bonus: 6000, extras: "Exclusive models · account manager" },
+];
+const CREDITS = { kling: 90, nbPro: 22 };  // credits per output at real-time prices
+const kickPct = m => m >= 13 ? .20 : m >= 7 ? .15 : .10;
+const fmt = n => Math.round(n).toLocaleString("en-US");
+
+// Placeholder until the seat counter reads from the database. Never ship a fake counter.
+const CLAIMED = 1004;
+document.querySelectorAll(".js-left").forEach(e => e.textContent = fmt(10000 - CLAIMED));
+document.querySelectorAll(".js-claimed").forEach(e => e.textContent = fmt(CLAIMED));
+document.querySelectorAll(".js-bar").forEach(e => e.style.width = CLAIMED / 100 + "%");
+
+// Calculator
+let plan = PLANS[1];
+const seg = document.getElementById("plan-seg");
+seg.innerHTML = PLANS.map(p => `<button data-id="${p.id}" aria-pressed="${p === plan}">${p.name}</button>`).join("");
+seg.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  plan = PLANS.find(p => p.id === b.dataset.id);
+  seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  calc();
+});
+function calc(){
+  const use = +document.getElementById("use").value / 100;
+  const month = +document.getElementById("month").value;
+  const spend = (plan.credits + plan.bonus) * use;
+  const kick = spend * kickPct(month);
+  let total = 0;
+  const bars = [];
+  for (let m = 1; m <= 24; m++) {
+    const k = spend * kickPct(m);
+    if (m <= month) total += k;
+    bars.push(`<i class="${m === month ? "now" : ""}" style="height:${k / (spend * .2) * 100}%"></i>`);
+  }
+  document.getElementById("use-out").textContent = Math.round(use * 100) + "%";
+  document.getElementById("month-out").textContent = "month " + month;
+  document.getElementById("kick").textContent = fmt(kick) + " credits";
+  document.getElementById("kick-sub").textContent =
+    `${kickPct(month) * 100}% of ${fmt(spend)} credits spent last month on ${plan.name} · founder price $${plan.founder}/mo`;
+  document.getElementById("eq-kling").textContent = fmt(kick / CREDITS.kling);
+  document.getElementById("eq-nb").textContent = fmt(kick / CREDITS.nbPro);
+  document.getElementById("eq-total").textContent = fmt(total);
+  document.getElementById("bars").innerHTML = bars.join("");
+}
+["use", "month"].forEach(id => document.getElementById(id).addEventListener("input", calc));
+calc();
+
+// Tier table + claim cards
+document.getElementById("tier-rows").innerHTML = PLANS.map(p =>
+  `<tr><td>${p.name}</td><td class="n">$${p.regular}</td><td class="n">$${p.founder}</td>
+   <td class="n">${fmt(p.credits + p.bonus)}</td><td class="n">+${fmt((p.credits + p.bonus) * .2)}</td><td>${p.extras}</td></tr>`).join("");
+document.getElementById("claim-plans").innerHTML = PLANS.map(p =>
+  `<div class="card plan ${p.id === "pro" ? "feature" : ""}">
+    <div class="name"><h3>${p.name}</h3>${p.id === "pro" ? '<span class="badge">Most popular</span>' : ""}</div>
+    <div><div class="price">$${p.founder}<small> / mo</small></div><div class="price-note"><s>$${p.regular}</s> regular · locked for life</div></div>
+    <ul><li class="x">Up to ${fmt((p.credits + p.bonus) * .2)} credits back / mo</li><li>${fmt(p.credits)} credits / month</li>${p.bonus ? `<li>+${fmt(p.bonus)} bonus pack</li>` : ""}<li>${p.extras}</li></ul>
+    <a class="btn ${p.id === "pro" ? "btn-primary" : "btn-ghost"}" href="#">Claim ${p.name} seat</a>
+  </div>`).join("");
+
+// Sticky CTA appears after the hero scrolls away.
+const sticky = document.getElementById("sticky");
+new IntersectionObserver(([e]) => {
+  sticky.classList.toggle("show", !e.isIntersecting);
+  sticky.setAttribute("aria-hidden", e.isIntersecting);
+}).observe(document.querySelector(".f-hero"));
+
+// Fast video wall: nothing downloads until a tile is on screen, at most 3 play at once,
+// and no video at all for reduced-motion or data-saver users (posters only).
+(function(){
+  const quiet = matchMedia("(prefers-reduced-motion: reduce)").matches || navigator.connection?.saveData;
+  if (quiet || !("IntersectionObserver" in window)) return;
+  const playing = new Set();
+  const io = new IntersectionObserver(entries => entries.forEach(({ target: v, isIntersecting }) => {
+    if (isIntersecting && v.dataset.src) {
+      if (!v.src) v.src = v.dataset.src;
+      if (playing.size < 3) { v.play().catch(() => {}); playing.add(v); }
+    } else if (!v.paused) { v.pause(); playing.delete(v); }
+  }), { rootMargin: "100px", threshold: .4 });
+  document.querySelectorAll("#wall video").forEach(v => io.observe(v));
+})();
+</script>
+</body>
+</html>
