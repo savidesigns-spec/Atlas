@@ -1,0 +1,13 @@
+name: profit-rule
+# Blocks any change to the video broker's prices that could lose money.
+on:
+  pull_request:
+    paths: ["ventures/video-broker/model/**"]
+  push:
+    paths: ["ventures/video-broker/model/**"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 ventures/video-broker/model/economics.py --check

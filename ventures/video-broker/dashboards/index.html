@@ -85,13 +85,14 @@ pre{background:var(--chip);padding:10px;border-radius:8px;overflow-x:auto;margin
 <!-- ============ USER ============ -->
 <section id="user" class="stack">
   <div class="grid kpis">
-    <div class="card"><h2>Balance</h2><div class="big">3,140</div><div class="sub">credits · Pro plan</div>
+    <div class="card"><h2>Balance</h2><div class="big">9,860</div><div class="sub">credits · Pro · Founding Member #1,204</div>
       <div class="meter" title="Plan grant / rollover / top-up">
-        <span style="width:52%;background:var(--bar)"></span><span style="width:24%;background:var(--bar2)"></span><span style="width:12%;background:var(--good)"></span>
+        <span style="width:58%;background:var(--bar)"></span><span style="width:16%;background:var(--bar2)"></span><span style="width:10%;background:var(--warn)"></span><span style="width:6%;background:var(--good)"></span>
       </div>
-      <div class="sub">Plan 2,180 · Rollover 1,000 · Top-up 520 (never expires)</div></div>
-    <div class="card"><h2>Renews</h2><div class="big">Nov 14</div><div class="sub">+4,200 credits · $49</div></div>
+      <div class="sub">Plan 6,200 · Rollover 2,140 · Bonus pack 1,000 · Kickback 520 (expires Dec 28)</div></div>
+    <div class="card"><h2>Renews</h2><div class="big">Nov 14</div><div class="sub">+12,500 credits + 1,000 bonus · $189 founder price, locked</div></div>
     <div class="card"><h2>This month</h2><div class="big">$31.80</div><div class="sub">spent across 214 jobs</div></div>
+    <div class="card"><h2>Founder kickback</h2><div class="big good">+612</div><div class="sub">10% of last month's spend · 15% from month 7</div></div>
     <div class="card"><h2>Refunded</h2><div class="big good">3 jobs</div><div class="sub">failed gens returned automatically</div></div>
   </div>
 
@@ -128,7 +129,7 @@ pre{background:var(--chip);padding:10px;border-radius:8px;overflow-x:auto;margin
         <tr><td>New product → hero image + 9:16 video</td><td><span class="chip">store.product.created</span></td><td class="n">112 cr</td></tr>
         <tr><td>Weekly UGC script → Veo Lite clip</td><td><span class="chip">Fri 18:00</span></td><td class="n">24 cr</td></tr>
       </tbody></table>
-      <p class="sub">3 of 50 automations used. All run on the saver queue by default.</p>
+      <p class="sub">3 of 100 automations used. All run on the saver queue by default.</p>
     </div>
   </div>
 </section>
@@ -136,11 +137,13 @@ pre{background:var(--chip);padding:10px;border-radius:8px;overflow-x:auto;margin
 <!-- ============ OWNER ============ -->
 <section id="owner" class="stack" hidden>
   <div class="grid kpis">
-    <div class="card"><h2>MRR</h2><div class="big">$67.5k</div><div class="sub good">+11.2% m/m</div></div>
-    <div class="card"><h2>Paid subs</h2><div class="big">1,500</div><div class="sub">60/30/10 Creator/Pro/Studio</div></div>
-    <div class="card"><h2>Gross margin</h2><div class="big">58%</div><div class="sub">target ≥ 55%</div></div>
+    <div class="card"><h2>MRR</h2><div class="big">$180k</div><div class="sub good">+11.2% m/m</div></div>
+    <div class="card"><h2>Paid subs</h2><div class="big">1,000</div><div class="sub">50/30/15/5 Starter/Pro/Studio/Elite</div></div>
+    <div class="card"><h2>Gross margin</h2><div class="big">55%</div><div class="sub">worst-case floor 25% · CI-enforced</div></div>
     <div class="card"><h2>Credit utilization</h2><div class="big">63%</div><div class="sub">of granted credits spent</div></div>
-    <div class="card"><h2>Rollover liability</h2><div class="big warn">$9.8k</div><div class="sub">unspent credits (deferred revenue)</div></div>
+    <div class="card"><h2>Rollover liability</h2><div class="big warn">$24.6k</div><div class="sub">unspent credits (deferred revenue)</div></div>
+    <div class="card"><h2>Founding seats</h2><div class="big">1,000</div><div class="sub">of 10,000 claimed · kickback liability $3.1k</div></div>
+    <div class="card"><h2>CAC tests</h2><div class="big">$6.2k</div><div class="sub">of $14k capped loss budget used</div></div>
     <div class="card"><h2>Failed jobs</h2><div class="big">1.9%</div><div class="sub">all auto-refunded</div></div>
   </div>
 
@@ -169,7 +172,7 @@ pre{background:var(--chip);padding:10px;border-radius:8px;overflow-x:auto;margin
     <div class="card">
       <h2>Acquisition · last 30 days</h2>
       <div class="bars" id="channels"></div>
-      <p class="sub">CAC per paid sub. Kill line: $60 Creator / $120 Pro.</p>
+      <p class="sub">CAC per paid sub. Kill line: $150 Starter / $300 Pro. Meta is over the Starter line.</p>
     </div>
   </div>
 </section>
@@ -229,7 +232,7 @@ pre{background:var(--chip);padding:10px;border-radius:8px;overflow-x:auto;margin
 
 <script>
 // Keep in sync with model/pricing.json (wholesale USD, markup 1.6, saver 0.5, Pro plan rate).
-const MARKUP = 1.6, SAVER = 0.5, FACE = 0.01, PLAN_RATE = 49 / 4200;
+const MARKUP = 1.6, SAVER = 0.5, FACE = 0.01, PLAN_RATE = 149 / 12500;
 const MODELS = [
   ["Auto · fast & cheap (Veo 3.1 Lite 5s)", 0.15],
   ["Nano Banana 2 · 1K image", 0.067],
@@ -251,7 +254,7 @@ function renderQuote(){
   const c = credits(w, saver) * n;
   document.getElementById("quote").innerHTML =
     `<b>${c.toLocaleString()} credits</b> (≈ $${(c * PLAN_RATE).toFixed(2)}) for ${n} × ${name}` +
-    (saver ? " · saver queue" : "") + `<br><span class="sub">Charged only if it succeeds. Balance after: ${(3140 - c).toLocaleString()}</span>`;
+    (saver ? " · saver queue" : "") + `<br><span class="sub">Charged only if it succeeds. Balance after: ${(9860 - c).toLocaleString()}</span>`;
 }
 ["model","count","saver"].forEach(id => document.getElementById(id).addEventListener("input", renderQuote));
 renderQuote();
@@ -265,8 +268,8 @@ function bars(el, rows, fmt){
     `<div class="bar-row"><span>${k}</span><div class="bar-track"><div class="bar-fill" style="width:${v / max * 100}%"></div></div><span style="text-align:right">${fmt(v)}</span></div>`).join("");
 }
 bars("usage", [["Kling 3.0", 1170], ["Nano Banana Pro", 704], ["Veo 3.1 Lite", 432], ["Seedance 2.0 F", 388], ["Nano Banana 2", 132]], v => v + " cr");
-bars("providers", [["fal.ai (Kling, Veo Lite)", 12400], ["Google (Nano Banana, Veo)", 10400], ["BytePlus (Seedance)", 4700]], v => "$" + (v / 1000).toFixed(1) + "k");
-bars("channels", [["Affiliates", 31], ["Organic social", 12], ["SEO", 18], ["TikTok ads", 54], ["Meta ads", 71]], v => "$" + v);
+bars("providers", [["fal.ai (Kling, Veo Lite)", 31000], ["Google (Nano Banana, Veo)", 26000], ["BytePlus (Seedance)", 11800]], v => "$" + (v / 1000).toFixed(1) + "k");
+bars("channels", [["Affiliates", 78], ["Organic social", 30], ["SEO", 45], ["TikTok ads", 135], ["Meta ads", 178]], v => "$" + v);
 
 const jobs = [
   ["Hoodie spin ×2", "Kling 3.0 Pro · 5s", "done", 180],
@@ -279,7 +282,7 @@ document.querySelector("#jobs tbody").innerHTML = jobs.map(([j, m, s, c]) =>
   `<tr><td>${j}</td><td>${m}</td><td><span class="chip ${s.startsWith("failed") ? "good" : ""}">${s}</span></td><td class="n">${c}</td><td class="n">$${(c * PLAN_RATE).toFixed(2)}</td></tr>`).join("");
 
 // Revenue at credit face value; wholesale = revenue / markup (saver jobs earn half and cost half).
-const marginRows = [["Kling 3.0 Pro", 16500, 0.56], ["Nano Banana Pro", 35400, 0.134], ["Veo 3.1 Lite", 20900, 0.15], ["Seedance 2.0 Fast", 3900, 1.21], ["Veo 3.1 8s", 1250, 3.20], ["Nano Banana 2", 24400, 0.067]];
+const marginRows = [["Kling 3.0 Pro", 41250, 0.56], ["Nano Banana Pro", 88500, 0.134], ["Veo 3.1 Lite", 52250, 0.15], ["Seedance 2.0 Fast", 9750, 1.21], ["Veo 3.1 8s", 3125, 3.20], ["Nano Banana 2", 61000, 0.067]];
 document.querySelector("#margin tbody").innerHTML = marginRows.map(([m, n, w]) => {
   const rev = n * credits(w) * PLAN_RATE, cost = n * w, gm = (1 - cost / rev) * 100;
   return `<tr><td>${m}</td><td class="n">${n.toLocaleString()}</td><td class="n">$${(rev / 1000).toFixed(1)}k</td><td class="n">$${(cost / 1000).toFixed(1)}k</td><td class="n">${gm.toFixed(0)}%</td></tr>`;

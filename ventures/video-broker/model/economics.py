@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Unit economics for the video broker. Reads pricing.json, prints Markdown.
+"""Unit economics and the always-profit rule for the video broker.
 
-Usage: python3 economics.py [path/to/pricing.json]
+Usage:
+  python3 economics.py            # print the Markdown report
+  python3 economics.py --check    # exit 1 if any price breaks profit_rule
 
-Three questions it answers:
-  1. What does each generation cost the user, in credits and dollars?
-  2. What gross margin does each plan make at a given utilization?
-  3. What happens if we copy Higgsfield's prices and hand out 5x the output?
+The worst case assumes every credit a user can get (plan, bonus pack, founder
+kickback, referral payout) is spent at the lowest-markup cost per credit. Saver
+queue jobs earn half and cost half, so they don't change the ratio, as long as
+saver runs only on providers with a real batch discount (profit_rule enforces that
+in the router, not here).
 """
 import json
 import math
@@ -18,6 +21,10 @@ def load(path):
     return json.loads(Path(path).read_text())
 
 
+def items(d):
+    return {k: v for k, v in d.items() if not k.startswith("_")}
+
+
 def credits_for(wholesale_usd, cfg, saver=False):
     price = wholesale_usd * cfg["default_markup"]
     if saver:
@@ -26,23 +33,89 @@ def credits_for(wholesale_usd, cfg, saver=False):
 
 
 def stripe_fee(price, cfg):
-    return 0 if price == 0 else price * cfg["stripe_pct"] + cfg["stripe_fixed_usd"]
+    return 0 if price <= 0 else price * cfg["stripe_pct"] + cfg["stripe_fixed_usd"]
 
 
-def blended_cost_per_credit(cfg):
-    """Wholesale dollars we pay per credit the user burns, under the usage mix."""
-    mix = {k: v for k, v in cfg["assumptions"]["usage_mix"].items() if not k.startswith("_")}
-    assert abs(sum(mix.values()) - 1) < 1e-9, "usage_mix must sum to 1"
-    total = 0.0
-    for key, share in mix.items():
-        w = cfg["wholesale"][key]["usd"]
-        total += share * w / credits_for(w, cfg)
-    return total
+def worst_cost_per_credit(cfg):
+    # credits_for rounds up, so real cost per credit is never above face / markup.
+    return cfg["credit_face_value_usd"] / cfg["default_markup"]
+
+
+def max_kickback_pct(cfg):
+    return max(s["pct_of_last_month_spend"] for s in cfg["founders"]["kickback_schedule"])
+
+
+def referral_payout(plan, cfg):
+    r = cfg["referrals"]
+    return min(plan["credits"] * r["pct_of_referee_plan_credits"], r["cap_credits_per_referee_month"])
+
+
+def margin(price, credits, infra, cfg):
+    cost = credits * worst_cost_per_credit(cfg) + infra + stripe_fee(price, cfg)
+    return (price - cost) / price
+
+
+def plan_variants(cfg):
+    """Yield (label, price, worst-case credits, typical credits, infra)."""
+    util = cfg["profit_rule"]["typical_utilization"]
+    kick = max_kickback_pct(cfg)
+    for name, p in items(cfg["plans"]).items():
+        base = p["credits"] + p["bonus_credits"]
+        ref = referral_payout(p, cfg)
+        worst = base + ref
+        yield f"{name} monthly", p["price_usd"], worst, base * util, p["infra_usd"]
+        off = cfg["annual"]["discount"][name]
+        if off:
+            yield f"{name} annual (−{off * 100:.0f}%)", round(p["price_usd"] * (1 - off), 2), worst, base * util, p["infra_usd"]
+        f_price = cfg["founders"]["prices_usd"][name]
+        f_worst = base * (1 + kick) + ref
+        yield f"{name} founder", f_price, f_worst, base * util * (1 + kick), p["infra_usd"]
+
+
+def topup_variants(cfg):
+    for name, t in items(cfg["topups"]).items():
+        yield f"top-up {t['credits']:,}", t["price_usd"], t["credits"]
+        yield f"top-up {t['credits']:,} (elite −10%)", round(t["price_usd"] * 0.9, 2), t["credits"]
+
+
+def profit_check(cfg):
+    rule = cfg["profit_rule"]
+    rows = ["| Price point | $/mo | Worst-case credits | Worst-case GM | Typical GM | Rule |",
+            "|---|---:|---:|---:|---:|---|"]
+    failures = []
+    for label, price, worst, typical, infra in plan_variants(cfg):
+        w = margin(price, worst, infra, cfg)
+        t = margin(price, typical, infra, cfg)
+        ok = w >= rule["floor_margin_worst_case"]
+        flag = "ok" if ok else "**FAIL**"
+        if ok and t < rule["target_margin_typical"]:
+            flag = "ok · below typical target"
+        if not ok:
+            failures.append(label)
+        rows.append(f"| {label} | ${price:,.2f} | {worst:,.0f} | {w * 100:.0f}% | {t * 100:.0f}% | {flag} |")
+    for label, price, credits in topup_variants(cfg):
+        w = margin(price, credits, 0, cfg)
+        ok = w >= rule["floor_margin_worst_case"]
+        if not ok:
+            failures.append(label)
+        rows.append(f"| {label} | ${price:,.2f} | {credits:,} | {w * 100:.0f}% | {w * 100:.0f}% | {'ok' if ok else '**FAIL**'} |")
+    return "\n".join(rows), failures
+
+
+def cac_table(cfg):
+    cpc = worst_cost_per_credit(cfg)
+    rows = ["| Test | Loss per user (worst case) | Budget cap | Ends | Kill if |",
+            "|---|---:|---:|---|---|"]
+    total = 0
+    for name, t in items(cfg["cac_tests"]).items():
+        loss = t["credits"] * cpc + t["infra_usd"] + stripe_fee(t["price_usd"], cfg) - t["price_usd"]
+        total += t["budget_cap_usd"]
+        rows.append(f"| {t['what']} | ${loss:,.2f} | ${t['budget_cap_usd']:,} | {t['ends']} | {t['kill_if']} |")
+    return "\n".join(rows), total
 
 
 def per_output_table(cfg):
-    plans = {k: v for k, v in cfg["plans"].items() if not k.startswith("_") and v["price_usd"]}
-    pro = plans["pro"]
+    pro = cfg["plans"]["starter"]
     rate = pro["price_usd"] / pro["credits"]
     hf = cfg["higgsfield_reference"]
     hf_rate = hf["plus_annual"]["price_usd"] / hf["plus_annual"]["credits"]
@@ -51,11 +124,9 @@ def per_output_table(cfg):
         "kling_3_pro_5s": 1000 / yield_["kling_3_videos"] * hf_rate,
         "nano_banana_pro_2k": 1000 / yield_["nano_banana_pro_images"] * hf_rate,
     }
-    rows = ["| Output | Wholesale | Our credits | Our price (Pro plan) | Saver queue | Higgsfield Plus |",
+    rows = ["| Output | Wholesale | Credits | Starter-plan $ | Saver queue | Higgsfield Plus |",
             "|---|---:|---:|---:|---:|---:|"]
-    for key, item in cfg["wholesale"].items():
-        if key.startswith("_"):
-            continue
+    for key, item in items(cfg["wholesale"]).items():
         c = credits_for(item["usd"], cfg)
         s = credits_for(item["usd"], cfg, saver=True)
         hf_cell = f"${hf_price[key]:.3f}" if key in hf_price else "—"
@@ -64,62 +135,41 @@ def per_output_table(cfg):
     return "\n".join(rows)
 
 
-def plan_margin_table(cfg):
-    cpc = blended_cost_per_credit(cfg)
-    utils = cfg["assumptions"]["utilization"]
-    head = "| Plan | Price | Credits | " + " | ".join(f"GM @ {int(u * 100)}% used" for u in utils) + " |"
-    rows = [head, "|---|---:|---:|" + "---:|" * len(utils)]
-    for name, p in cfg["plans"].items():
-        if name.startswith("_"):
-            continue
-        cells = []
-        for u in utils:
-            cost = p["credits"] * u * cpc + cfg["infra_cost_per_sub_usd"]
-            net = p["price_usd"] - stripe_fee(p["price_usd"], cfg) - cost
-            if p["price_usd"]:
-                cells.append(f"{net / p['price_usd'] * 100:.0f}%")
-            else:
-                cells.append(f"-${-net:.2f}/user")
-        rows.append(f"| {name} | ${p['price_usd']} | {p['credits']:,} | " + " | ".join(cells) + " |")
-    for name, t in cfg["topups"].items():
-        if name.startswith("_"):
-            continue
-        cost = t["credits"] * cpc
-        net = t["price_usd"] - stripe_fee(t["price_usd"], cfg) - cost
-        rows.append(f"| top-up {t['credits']:,} | ${t['price_usd']} | {t['credits']:,} | "
-                    + " | ".join([f"{net / t['price_usd'] * 100:.0f}%"] * len(utils)) + " |")
-    return cpc, "\n".join(rows)
-
-
-def five_x_scenario(cfg):
-    """Higgsfield's Plus price, 5x its advertised Kling 3.0 yield, paid at wholesale."""
-    hf = cfg["higgsfield_reference"]
-    price = hf["plus_annual"]["price_usd"]
-    videos = hf["advertised_yield_per_1000_credits"]["kling_3_videos"] * 5
-    w = cfg["wholesale"]["kling_3_pro_5s"]["usd"]
-    rows = ["| Share of allowance used | Videos | Our wholesale bill | Revenue | Profit per user/mo |",
-            "|---:|---:|---:|---:|---:|"]
-    for u in (0.1, 0.25, 0.5, 1.0):
-        n = videos * u
-        cost = n * w
-        rev = price - stripe_fee(price, cfg)
-        rows.append(f"| {int(u * 100)}% | {n:,.0f} | ${cost:,.2f} | ${rev:.2f} | ${rev - cost:,.2f} |")
-    breakeven = (price - stripe_fee(price, cfg)) / (videos * w)
-    return "\n".join(rows), breakeven
+def revenue_ladder(cfg):
+    arpu = cfg["assumptions"]["revenue_ladder_arpu_usd"]
+    rows = ["| Annual revenue | Paying subscribers needed | Share of Higgsfield's ~$1B |",
+            "|---:|---:|---:|"]
+    for arr in (1e6, 10e6, 50e6, 100e6, 250e6):
+        rows.append(f"| ${arr / 1e6:,.0f}M | {arr / 12 / arpu:,.0f} | {arr / 1e9 * 100:.1f}% |")
+    return arpu, "\n".join(rows)
 
 
 def main():
-    path = sys.argv[1] if len(sys.argv) > 1 else Path(__file__).with_name("pricing.json")
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    path = args[0] if args else Path(__file__).with_name("pricing.json")
     cfg = load(path)
+    table, failures = profit_check(cfg)
+    if "--check" in sys.argv:
+        if failures:
+            print("Profit rule FAILED for: " + ", ".join(failures))
+            sys.exit(1)
+        print("Profit rule holds for every plan, founder price, annual price and top-up.")
+        return
+
     print("## 1. Price per output\n")
     print(per_output_table(cfg))
-    cpc, margins = plan_margin_table(cfg)
-    print(f"\n## 2. Plan gross margin (blended wholesale ${cpc:.5f}/credit)\n")
-    print(margins)
-    table, be = five_x_scenario(cfg)
-    print("\n## 3. \"Higgsfield price, 5x the output\" on Kling 3.0\n")
+    rule = cfg["profit_rule"]
+    print(f"\n## 2. Profit rule: worst case ≥ {rule['floor_margin_worst_case'] * 100:.0f}% "
+          f"(every credit spent, incl. bonus, founder kickback at max, referral payout)\n")
     print(table)
-    print(f"\nBreak-even: users can touch only {be * 100:.1f}% of the allowance before every sub loses money.")
+    print("\n" + ("All price points pass." if not failures else "FAILING: " + ", ".join(failures)))
+    cac, total = cac_table(cfg)
+    print("\n## 3. CAC tests (the only allowed losses)\n")
+    print(cac)
+    print(f"\nTotal loss exposure, capped: ${total:,}")
+    arpu, ladder = revenue_ladder(cfg)
+    print(f"\n## 4. Revenue ladder at ${arpu} blended ARPU\n")
+    print(ladder)
 
 
 if __name__ == "__main__":

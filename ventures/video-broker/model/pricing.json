@@ -1,11 +1,18 @@
 {
-  "_about": "Single source of truth for the broker's pricing math. economics.py reads this file. Wholesale costs are public list prices gathered 2026-10-29; replace them with contracted rates as soon as you have them. Every number tagged with where it came from.",
+  "_about": "Single source of truth for the broker's pricing math. economics.py reads this file and enforces profit_rule; run `python3 economics.py --check` before changing any live price. Wholesale costs are public list prices gathered 2026-10-29; replace them with contracted rates as soon as you have them.",
   "credit_face_value_usd": 0.01,
   "default_markup": 1.6,
   "saver_queue_discount": 0.5,
   "stripe_pct": 0.029,
   "stripe_fixed_usd": 0.30,
-  "infra_cost_per_sub_usd": 1.25,
+
+  "profit_rule": {
+    "_note": "Every plan, founder variant, annual price and top-up must clear floor_margin_worst_case with 100% of its credits spent (including bonus, founder kickback and referral payouts). Losses are allowed only inside a cac_tests entry with a budget cap and an end date.",
+    "floor_margin_worst_case": 0.25,
+    "target_margin_typical": 0.50,
+    "typical_utilization": 0.65,
+    "saver_queue_requires_batch_provider": true
+  },
 
   "wholesale": {
     "_unit": "USD per output. Video = one 5-second clip unless noted. Sources: fal.ai model pages via devtk.ai / ofox.ai / buildmvpfast.com (Sep-Oct 2026), Google Gemini API pricing via benchlm.ai (2026-09-11).",
@@ -23,18 +30,59 @@
   },
 
   "plans": {
-    "_note": "Proposed launch plans. credits = monthly allowance. Rollover capped at 1x the allowance (so balance never exceeds 2x) while the subscription is active.",
-    "free":    { "price_usd": 0,   "credits": 150,   "concurrency": 1, "storage_gb": 2,   "automations": 1,  "agent_keys": 0 },
-    "creator": { "price_usd": 19,  "credits": 1500,  "concurrency": 4, "storage_gb": 25,  "automations": 10, "agent_keys": 1 },
-    "pro":     { "price_usd": 49,  "credits": 4200,  "concurrency": 8, "storage_gb": 100, "automations": 50, "agent_keys": 5 },
-    "studio":  { "price_usd": 129, "credits": 11500, "concurrency": 16, "storage_gb": 500, "automations": 250, "agent_keys": 25 }
+    "_note": "credits = monthly allowance; bonus_credits = monthly bonus pack (higher tiers only). infra_usd = storage at full quota (R2 $0.015/GB) + compute/support; Elite includes a shared account manager. Rollover capped at 1x the allowance.",
+    "starter": { "price_usd": 75,  "credits": 6000,  "bonus_credits": 0,    "infra_usd": 1.75,  "concurrency": 4,  "storage_gb": 50,   "automations": 25,  "agent_keys": 2,
+                 "exclusive": [] },
+    "pro":     { "price_usd": 149, "credits": 12500, "bonus_credits": 1000, "infra_usd": 3.75,  "concurrency": 8,  "storage_gb": 150,  "automations": 100, "agent_keys": 5,
+                 "exclusive": ["Monthly bonus pack", "Priority queue"] },
+    "studio":  { "price_usd": 299, "credits": 26000, "bonus_credits": 3000, "infra_usd": 9.50,  "concurrency": 16, "storage_gb": 500,  "automations": 300, "agent_keys": 15,
+                 "exclusive": ["Monthly bonus pack", "Priority queue", "Early access to new models (7 days ahead)", "Exclusive template packs"] },
+    "elite":   { "price_usd": 599, "credits": 54000, "bonus_credits": 6000, "infra_usd": 40.00, "concurrency": 32, "storage_gb": 1000, "automations": 1000, "agent_keys": 50,
+                 "exclusive": ["Largest monthly bonus pack", "Top-priority queue", "Early access to new models (14 days ahead)", "Exclusive models and presets", "Account manager", "10% off top-ups"] }
+  },
+
+  "annual": { "discount": { "starter": 0.10, "pro": 0.10, "studio": 0.05, "elite": 0 }, "_note": "Billed yearly; same credits per month. Studio/Elite get smaller or no discounts because 10% off broke the profit rule (economics.py --check)." },
+
+  "founders": {
+    "_note": "Founding Member program for the first 10,000 subscribers. They pay a premium monthly price and get a monthly kickback in credits. Kickbacks are platform credits only: never cash, never transferable, never tied to company revenue or profit. That keeps it a loyalty program and not a security; get a lawyer to confirm before launch.",
+    "seats": 10000,
+    "prices_usd": { "starter": 95, "pro": 189, "studio": 379, "elite": 749 },
+    "kickback_schedule": [
+      { "from_month": 1,  "pct_of_last_month_spend": 0.10 },
+      { "from_month": 7,  "pct_of_last_month_spend": 0.15 },
+      { "from_month": 13, "pct_of_last_month_spend": 0.20 }
+    ],
+    "kickback_expires_days": 60,
+    "price_lock": "Founder price is locked for life while the subscription stays active; lapses on cancel.",
+    "perks": ["Founder badge", "Lifetime price lock", "Vote on which models we add", "Founders-only Discord and monthly call"]
+  },
+
+  "referrals": {
+    "_note": "Paid in credits to the referrer for 12 months. Counted against the referred user's margin in the profit check.",
+    "pct_of_referee_plan_credits": 0.05,
+    "cap_credits_per_referee_month": 1000,
+    "months": 12
   },
 
   "topups": {
-    "_note": "One-time packs. No expiry while subscribed (Higgsfield's top-ups expire after 90 days).",
-    "pack_1000":  { "price_usd": 14,  "credits": 1000 },
-    "pack_3000":  { "price_usd": 39,  "credits": 3000 },
-    "pack_10000": { "price_usd": 119, "credits": 10000 }
+    "_note": "One-time packs. No expiry while subscribed. Elite gets 10% off.",
+    "pack_2000":  { "price_usd": 25,  "credits": 2000 },
+    "pack_5000":  { "price_usd": 59,  "credits": 5000 },
+    "pack_15000": { "price_usd": 165, "credits": 15000 }
+  },
+
+  "cac_tests": {
+    "_note": "The only place a loss is allowed. Each test needs a budget cap, an end date and a kill rule. economics.py totals the exposure.",
+    "trial_7day_starter": {
+      "what": "7-day Starter trial for $1, card required, 500 credits",
+      "price_usd": 1, "credits": 500, "infra_usd": 0.50,
+      "budget_cap_usd": 5000, "ends": "2027-03-31", "kill_if": "trial→paid < 15% or CAC > $150"
+    },
+    "creator_seeding": {
+      "what": "50 hand-picked creators get Pro free for 2 months in exchange for content rights",
+      "price_usd": 0, "credits": 13500, "infra_usd": 3.75, "users": 50, "months": 2,
+      "budget_cap_usd": 9000, "ends": "2027-02-28", "kill_if": "< 10 paid referrals by month 2"
+    }
   },
 
   "higgsfield_reference": {
@@ -60,6 +108,8 @@
       "seedance_2_fast_720p_5s": 0.15,
       "veo_31_lite_5s": 0.15,
       "veo_31_8s_audio": 0.10
-    }
+    },
+    "revenue_ladder_arpu_usd": 180,
+    "_ladder_note": "Blended ARPU for the revenue ladder: plan mix 50% Starter / 30% Pro / 15% Studio / 5% Elite plus ~15% top-up uplift, before founder premiums."
   }
 }

@@ -1,6 +1,6 @@
 # AI Video Broker — Business, Sales & Marketing Plan
 
-*Working name: TBD. Drafted 2026-10-29. Confidence tags: **[Certain]** = hard evidence
+*Working name: TBD. Drafted 2026-10-29; **pricing v2 (premium plans + Founders) adopted the same day, see §7.** Confidence tags: **[Certain]** = hard evidence
 (live data or our own math), **[Likely]** = strong inference from multiple sources,
 **[Guessing]** = assumption to be replaced with real data.*
 
@@ -52,13 +52,18 @@ users (and their Claude/ChatGPT/Slack bots) can run fully automated content work
    accounts.
 
 **How it makes money:**
-- subscriptions ($19 / $49 / $129)
-- top-up packs at a 45–51% margin
-- later, an agency tier and API usage
+- premium subscriptions: **$75 / $149 / $299 / $599**
+- a **Founding Member** price (+~25%) for the first 10,000 subscribers, who get monthly
+  credit kickbacks back
+- top-up packs at a 34–46% margin
+- later, API usage
 
-Credits are priced at **wholesale × 1.6**. The plans run at a **57–60% gross margin at
-65% utilization** and still clear **40% if every credit gets used** [Certain, given the
-cost inputs].
+Credits are priced at **wholesale × 1.6**. A hard **profit rule** (§7.4), enforced in CI,
+guarantees every price point clears **≥25% gross margin even if every credit is spent**.
+Plans run at **50–64% at typical (65%) use** [Certain, given the cost inputs].
+
+**Target:** 25% of Higgsfield's ~$1B, i.e. **$250M/yr**. At a $180 blended ARPU that
+needs **~116,000 paying subscribers** (§12).
 
 **What we need:** a 2–3 person build team for about 12 weeks to reach a paid beta. Capital
 is mostly prepaid model inventory and paid acquisition. See section 12.
@@ -148,7 +153,7 @@ third of fal's list price. The likely mechanisms:
 
 | | Higgsfield | Magnific (Freepik) | OpenArt | Krea | **Us** |
 |---|---|---|---|---|---|
-| Entry paid price | $39/mo (annual) | ~$9–$24 [Likely] | ~$14 [Guessing] | $9 | **$19** |
+| Entry paid price | $39/mo (annual) | ~$9–$24 [Likely] | ~$14 [Guessing] | $9 | **$75** (business tier) |
 | Models | 80+ video, own + 3rd party | Broad 3rd party | Broad 3rd party | Broad + real-time | 8 curated + advanced |
 | Own MCP server | **Yes** (gen, jobs, publishing, sites) | Unknown | Unknown | Unknown | **Yes, day one** |
 | Scheduled automation | 2–10 jobs | — | — | — | **10–250 automations** |
@@ -168,13 +173,20 @@ quoting it in marketing.*
 You asked for similar pricing with 5x more. Giving 5x more *compute* bankrupts us
 (section 0). Here's where we can honestly give 5x at the same price:
 
-| "5x" claim | Higgsfield Plus ($39) | Us, Pro ($49) | Cost to us |
+| "5x" claim | Higgsfield Ultra ($129) | Us, Pro ($149) | Cost to us |
 |---|---|---|---|
-| Automations / scheduled jobs | 2 | **50** (25x) | ~0, it's a queue |
-| Storage | 2 GB | **100 GB** (50x) | ~$1.50/mo on R2 |
+| Automations / scheduled jobs | 10 | **100** (10x) | ~0, it's a queue |
+| Storage | 5 GB | **150 GB** (30x) | ~$2.25/mo on R2 |
 | Credit lifetime | 90 days (top-ups) | **No expiry while subscribed** | Less breakage. We give it up on purpose. |
 | Budget-lane volume | — | **5x more Veo Lite / Nano Banana 2 / Saver-queue output per dollar** than our own premium lane | Built into the pricing |
 | Agent seats | 1 account | **5 agent keys** | ~0 |
+
+**At $75+ we are a business tool, not a consumer toy.** [Likely] Arcads, the closest
+business-focused ad tool, charges about $77–110/mo at entry. Creatify Pro is $99/mo.
+Raising prices does **not** close the per-video gap with Higgsfield (Starter buys ~66
+Kling 3.0 clips for $75; Higgsfield Plus advertises ~200 for $39). The premium has to be
+earned by automations, store sync, agents and honest billing, and the marketing must sell
+*hours saved and ads shipped*, never *videos per dollar*.
 
 **Tagline direction:** *"Every top AI video model. One honest price. Automate the rest."*
 
@@ -224,43 +236,116 @@ of all three dashboards: `dashboards/index.html`.
 
 ---
 
-## 7. Pricing & unit economics
+## 7. Pricing v2: premium plans, Founders, and the always-profit rule
 
-Run `python3 model/economics.py` to regenerate the tables below from `model/pricing.json`.
+Decided 2026-10-29:
+- the lowest plan is about $75
+- the first 10,000 users get a Founding Member premium with monthly credit kickbacks
+- high tiers get bonus packs and exclusive access
+- **we never lose money, except on capped customer-acquisition tests**
 
-### Plans
-| Plan | Price | Credits | Concurrency | Storage | Automations | Agent keys |
-|---|---|---|---|---|---|---|
-| Free | $0 | 150 one-time | 1 | 2 GB | 1 | 0 |
-| Creator | $19 | 1,500 | 4 | 25 GB | 10 | 1 |
-| Pro | $49 | 4,200 | 8 | 100 GB | 50 | 5 |
-| Studio | $129 | 11,500 | 16 | 500 GB | 250 | 25 |
-| Top-ups | $14 / $39 / $119 | 1k / 3k / 10k | | | | |
+Run `python3 model/economics.py` for the full tables. `--check` fails if any price
+breaks the rule.
 
-### Gross margin
-Blended wholesale cost is $0.0062 per credit. [Certain math; Guessing usage mix]
+### 7.1 Plans
+| Plan | Monthly | Annual | Credits/mo | Bonus pack/mo | Concurrency | Storage | Automations | Agent keys |
+|---|---|---|---|---|---|---|---|---|
+| **Starter** | $75 | $67.50 (−10%) | 6,000 | — | 4 | 50 GB | 25 | 2 |
+| **Pro** | $149 | $134.10 (−10%) | 12,500 | +1,000 | 8 | 150 GB | 100 | 5 |
+| **Studio** | $299 | $284.05 (−5%) | 26,000 | +3,000 | 16 | 500 GB | 300 | 15 |
+| **Elite** | $599 | no discount | 54,000 | +6,000 | 32 | 1 TB | 1,000 | 50 |
 
-| Plan | @40% used | @65% used | @100% used |
+Studio and Elite get smaller or no annual discounts because a 10% discount broke the
+profit rule. The guard caught it.
+
+**What Starter's 6,000 credits buy:** ~66 Kling 3.0 clips, *or* ~270 Nano Banana Pro
+images, *or* 250 Veo 3.1 Lite clips. The Saver queue doubles each of those.
+
+### 7.2 Exclusive access by tier
+| | Pro | Studio | Elite |
 |---|---|---|---|
-| Creator | 69% | 57% | 40% |
-| Pro | 73% | 59% | 41% |
-| Studio | 74% | 60% | 41% |
-| Top-ups | 45–51% | | |
+| Monthly bonus pack | ✓ | ✓ | ✓ (largest) |
+| Priority queue | ✓ | ✓ | top priority |
+| Early access to new models | | 7 days | 14 days |
+| Exclusive templates / presets | | ✓ | ✓ + exclusive models |
+| Account manager | | | ✓ |
+| Top-ups | | | 10% off |
 
-Free tier costs about **$1.85 per signup**, so cap it at one per verified phone or card.
+### 7.3 Founding Members (first 10,000 subscribers)
+| | Starter | Pro | Studio | Elite |
+|---|---|---|---|---|
+| Founder price | **$95** | **$189** | **$379** | **$749** |
 
-### Price per output (Pro plan)
+**Monthly kickback**, paid as credits on the 1st of each month, as a share of last
+month's credit spend:
 
-| Output | Real-time | Saver queue |
+| Months subscribed | Kickback |
+|---|---|
+| 1–6 | 10% |
+| 7–12 | 15% |
+| 13+ | 20% |
+
+- Kickback credits expire after 60 days, which caps our liability.
+- **Price locked for life** while the subscription stays active.
+- Founder badge, a vote on which models we add next, and a founders-only Discord with a
+  monthly call.
+- The seat counter on the website ("7,412 of 10,000 left") is the scarcity hook.
+
+**I disagree with calling this "credit equity."** That name, or anything that looks like
+a share of company revenue, risks turning a loyalty program into an unregistered
+security. [Likely] Kickbacks are **platform credits only**:
+- never cash
+- never transferable
+- never tied to company revenue or profit
+
+Call it *Founding Member rewards*. Have a lawyer sign off on the terms before launch.
+
+**Referrals (all plans):** the referrer gets 5% of the referred user's plan credits each
+month (capped at 1,000) for 12 months, paid in credits.
+
+### 7.4 The profit rule (how "never lose money" is enforced)
+1. **Price table check, in CI.** `economics.py --check` assumes the worst case for every
+   plan, annual price, founder price and top-up: *every* credit is spent, including the
+   bonus pack, the maximum founder kickback and a referral payout. The worst case must
+   still clear **≥25% gross margin** after Stripe fees and storage.
+   `.github/workflows/profit-rule.yml` runs it on any pricing change.
+2. **Per-job floor.** Every job is priced at submit time at ≥1.6× the *live* wholesale
+   cost of the provider it's routed to. If a provider raises prices, our credit price
+   rises with it, so a job can't be sold below cost.
+3. **Saver queue only where it's real.** The half-price lane only routes to providers
+   with an actual batch/off-peak discount.
+4. **Losses only in named, capped acquisition (CAC) tests**, each with a budget cap, an
+   end date and a kill rule:
+
+| CAC test | Worst-case loss/user | Cap | Ends | Kill if |
+|---|---|---|---|---|
+| 7-day Starter trial for $1, card required, 500 credits | $2.95 | $5,000 | 2027-03-31 | trial→paid < 15% or CAC > $150 |
+| 50 creators get Pro free for 2 months (content rights) | $88.12 | $9,000 | 2027-02-28 | < 10 paid referrals by month 2 |
+
+**Worst-case results** [Certain math]:
+
+| Price point | Worst-case margin | Typical (65% used) |
 |---|---|---|
-| Veo 3.1 Lite 5s | **$0.28** | $0.14 |
-| Nano Banana 2 | **$0.13** | $0.07 |
-| Nano Banana Pro 2K | **$0.26** | $0.13 |
-| Kling 3.0 5s | **$1.05** | $0.53 |
-| Seedance 2.0 Fast 5s | **$2.26** | $1.13 |
+| Starter (monthly / annual / founder) | 42% / 36% / 46% | 58–64% |
+| Pro | 35% / 28% / 39% | 53–60% |
+| Studio | 31% / 28% / 35% | 52–57% |
+| Elite (monthly / founder) | 27% / 31% | 50–53% |
+| Top-ups | 34–46% | |
 
-Higgsfield sells Kling 3.0 at about $0.195 and Nano Banana Pro at about $0.065. This is
-the gap sections 0 and 8 deal with.
+There's no free tier. A $0 plan is a guaranteed loss, so it only exists as the capped $1
+trial above.
+
+### 7.5 Price per output (Starter plan rate)
+
+| Output | Real-time | Saver queue | Higgsfield |
+|---|---|---|---|
+| Veo 3.1 Lite 5s | $0.30 | $0.15 | — |
+| Nano Banana 2 | $0.14 | $0.08 | — |
+| Nano Banana Pro 2K | $0.28 | $0.14 | ~$0.065 |
+| Kling 3.0 5s | $1.13 | $0.56 | ~$0.195 |
+| Seedance 2.0 Fast 5s | $2.43 | $1.21 | — |
+
+The gap with Higgsfield is unchanged by repricing. Section 8 is how it closes.
 
 ---
 
@@ -273,7 +358,10 @@ In order of impact:
    Automations are the natural user of this, since nobody waits on a Monday-morning job.
 2. **Multi-provider routing.** The same model is priced differently by the model owner,
    fal, Replicate, and resellers [Likely]. The router picks the cheapest healthy provider
-   per job (`ARCHITECTURE.md` §3).
+   per job (`ARCHITECTURE.md` §3). **Add Higgsfield's own pay-per-use API as one of the
+   providers** ("join them" in the literal sense). If its rates beat fal on a model, the
+   router uses it. Their *subscription* credits can't be resold, but the API is a separate
+   prepaid product. [Likely; confirm resale is allowed in their API terms]
 3. **Direct contracts** once spend passes about $20–50k/mo: BytePlus ModelArk (Seedance),
    Kling API, Vertex AI (Veo/Gemini). Expect 20–50% off list with committed spend.
    [Guessing on the discount size]
@@ -292,18 +380,20 @@ on honesty, simplicity and automation, never on "cheapest Kling".
 
 | Segment | Motion | Offer | Goal (month 6) |
 |---|---|---|---|
-| Small e-com brands | Self-serve + Shopify/Woo app listing + founder-led demos | "Connect your store, get 20 ad videos this week." 14-day Pro trial with a card. | 300 paid |
-| Creators / UGC freelancers | Self-serve, affiliates | Creator plan, template gallery | 900 paid |
-| Agencies | Founder-led sales, Studio + seats | Studio at $129 + $29/seat, white-label share links | 25 accounts |
-| Developers / agent builders | Docs, MCP registry listings | Free key with 150 credits, pay-as-you-go top-ups | 150 active keys |
+| Small e-com brands | Self-serve + Shopify/Woo app listing + founder-led demos | "Connect your store, get 20 ad videos this week." $1 7-day trial with a card. | 450 paid |
+| Pro creators / UGC freelancers | Self-serve, affiliates | Starter/Pro, Founding Member scarcity, template gallery | 350 paid |
+| Agencies | Founder-led sales | Studio/Elite, white-label share links | 40 accounts |
+| Developers / agent builders | Docs, MCP registry listings | Starter + agent keys, top-ups | 100 active keys |
 
 **Funnel targets:** [Guessing; replace after 30 days of data]
 - visitor → signup: 6%
 - signup → paid: 8%
-- monthly logo churn: 8% on Creator, 5% on Pro/Studio
+- monthly logo churn: 7% on Starter, 4% on Pro and up (founders should churn less because of the price lock)
 
-**Affiliate program:** 20% recurring for 12 months (not 30%+). At a ~58% gross margin a
-30% cut leaves too little room for paid ads.
+**Affiliate program:** 20% recurring for 12 months, paid in cash to outside affiliates.
+This is separate from the credit-only member referrals. At a 27% worst-case margin on
+Elite, a 30% cut would break the profit rule. The check doesn't model cash affiliate
+payouts yet; add them before launch.
 
 ---
 
@@ -315,7 +405,7 @@ on honesty, simplicity and automation, never on "cheapest Kling".
 | 3–8 | **Content engine** | 3 short-form posts a day (TikTok/Reels/Shorts), each showing prompt → result → *the receipt*. Recurring formats: "Higgsfield vs us: same prompt, what you actually pay" and "This workflow made 20 ads while I slept." |
 | 4–10 | **SEO + comparison pages** | Pages for "Higgsfield alternative", "Seedance 2.0 price", "Kling 3.0 API", "Nano Banana Pro without subscription", "AI product video for Shopify". A public live model price index, updated weekly from `pricing.json`. |
 | 6–12 | **Launch** | Product Hunt, Shopify App Store, WooCommerce marketplace. MCP registries and Claude connector directory submission. Discord community with weekly prompt contests (prizes in credits, which cost us about 62¢ per $1 of face value). |
-| 8–12 | **Paid** | $3–5k/mo test budget on TikTok + Meta, retargeting site visitors with receipt-style creatives. Kill any channel above $60 CAC on Creator or $120 on Pro. [Guessing thresholds] |
+| 8–12 | **Paid** | $3–5k/mo test budget on TikTok + Meta, retargeting site visitors with receipt-style creatives. Kill any channel above $150 CAC on Starter or $300 on Pro. [Guessing thresholds] |
 | ongoing | **Affiliates** | Recruit 30 AI-tool YouTubers/TikTokers at 20% recurring. Give them their own template pack. |
 
 **Messaging pillars:**
@@ -344,31 +434,47 @@ on honesty, simplicity and automation, never on "cheapest Kling".
 
 ---
 
-## 12. Financials (12-month scenarios)
+## 12. Financials
 
-[Guessing on volumes; Certain on the arithmetic.] Inputs:
-- Plan mix: 60% Creator / 30% Pro / 10% Studio, for an ARPU of $39. With top-ups (~15%
-  uplift) that's about **$45 ARPU**.
-- Gross margin: 58% at 65% utilization.
+### 12.1 The $250M target (25% of Higgsfield)
+[Certain arithmetic]. The $180 blended ARPU assumes:
+- a plan mix of 50% Starter / 30% Pro / 15% Studio / 5% Elite
+- ~15% top-up uplift
+- no founder premium
+
+| Annual revenue | Paying subscribers needed |
+|---|---|
+| $1M | 463 |
+| $10M | 4,630 |
+| $50M | 23,148 |
+| $100M | 46,296 |
+| **$250M** | **115,741** |
+
+**The uncomfortable part:** [Likely] Higgsfield's climb to $1B took about 18 months, a
+viral consumer funnel and $480M+ of venture money (an $80M Series A extension and a
+$400M Series B). [Guessing] Bootstrapped, $250M is a 5–7 year goal at best. In 2–3
+years it needs a venture round of comparable size. The founder program filling all
+10,000 seats gets you to about **$22–25M a year**, which is the realistic first summit.
+
+### 12.2 First 12 months
+[Guessing on volumes]
 
 | Month 12 | Conservative | Base | Aggressive |
 |---|---|---|---|
-| Paid subscribers | 400 | 1,500 | 5,000 |
-| MRR | $18k | $67.5k | $225k |
-| Gross profit / mo | $10.4k | $39k | $130k |
-| Marketing / mo | $4k | $15k | $50k |
-| Team + tools / mo | $25k | $35k | $60k |
-| **Monthly net** | **−$18.6k** | **−$11k** | **+$20k** |
+| Paying subscribers | 300 | 1,000 | 3,000 |
+| MRR (ARPU $180) | $54k | $180k | $540k |
+| Gross profit/mo (~55%) | $29.7k | $99k | $297k |
+| Marketing/mo | $6k | $25k | $90k |
+| Team + tools/mo | $25k | $40k | $80k |
+| **Monthly net** | **−$1.3k** | **+$34k** | **+$127k** |
 
-**Starting capital:** about **$250–350k** covers 12 months of the base case. That breaks
-down as:
-- team
-- $40–60k of prepaid provider credit (needed for wholesale tiers)
-- paid acquisition
+Higher prices mean fewer users are needed to break even. Base case is cash-positive by
+month 12, but CAC at these prices runs $150–300 [Guessing]. Track it from week one.
 
-Bootstrapping on a two-founder team with no salaries cuts this to roughly $60–90k.
-
----
+**Starting capital:**
+- **$150–250k**: team, about $40–60k of prepaid provider credit for wholesale tiers, and
+  the $14k CAC-test budget.
+- **$60–90k**: bootstrapped with founders unpaid.
 
 ## 13. Risks
 
@@ -378,7 +484,9 @@ Bootstrapping on a two-founder team with no salaries cuts this to roughly $60–
 | Provider raises prices or deprecates a model (e.g. a fal Veo 3 endpoint is flagged for deprecation on 2026-11-17) | High | Price table is config. Router fails over. Credits are priced per job at submit time. |
 | A provider bans resale | Medium | Use providers whose terms allow API resale. Read each ToS before launch. Keep 2+ providers per flagship model. |
 | Abuse (free-tier farming, deepfakes, chargebacks) | High | Card/phone verification. Moderation on every job. Spend caps. Stripe Radar. |
-| Margin squeeze if power users burn 100% | Medium | Still 40% at full use. Concurrency limits. Saver queue nudges. |
+| Margin squeeze if power users burn 100% | Medium | Profit rule guarantees ≥25% at full use on every price. CI blocks violations. |
+| Founder program read as an investment | Medium | Credits only, no cash, no revenue share, lawyer-reviewed terms; never say "equity" |
+| $75 floor scares off casual users | High | Intended: we sell to businesses. The $1 trial is the on-ramp. |
 | Being "just a wrapper" | High | The moat is workflows, store connectors and agent keys plus saved templates. That's what makes switching painful. |
 
 ---

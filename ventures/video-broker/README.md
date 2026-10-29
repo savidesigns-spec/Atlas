@@ -8,7 +8,9 @@ Slack/Discord bots) for automated workflows.
 |---|---|
 | `BUSINESS_PLAN.md` | Business, sales and marketing plan, Higgsfield teardown, competitor comparison, financials. **Start with section 0.** |
 | `ARCHITECTURE.md` | Router, credit ledger, agent keys, workflows, store connectors |
-| `model/pricing.json` | Plans, top-ups, wholesale costs, assumptions: the one place to change numbers |
-| `model/economics.py` | `python3 model/economics.py` prints per-output prices, plan margins, and the "5x Higgsfield" loss table |
+| `model/pricing.json` | Plans, Founding Member program, top-ups, CAC tests, wholesale costs: the one place to change numbers |
+| `model/economics.py` | Prints per-output prices, the profit-rule table, CAC exposure and the $250M revenue ladder. `--check` fails on any price that could lose money (runs in CI: `.github/workflows/profit-rule.yml`) |
 | `backoffice/mcp-tools.json` | MCP / REST tool surface for agents |
 | `dashboards/index.html` | Clickable prototype: User, Owner and Agent back-office dashboards (sample data) |
+| `site/index.html` | Home page design (light/dark, mobile) with pricing, Founders and agents sections |
+| `site/DESIGN.md` | Design tokens, voice, sitemap, pre-launch rules |
