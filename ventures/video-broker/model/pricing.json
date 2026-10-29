@@ -1,0 +1,65 @@
+{
+  "_about": "Single source of truth for the broker's pricing math. economics.py reads this file. Wholesale costs are public list prices gathered 2026-10-29; replace them with contracted rates as soon as you have them. Every number tagged with where it came from.",
+  "credit_face_value_usd": 0.01,
+  "default_markup": 1.6,
+  "saver_queue_discount": 0.5,
+  "stripe_pct": 0.029,
+  "stripe_fixed_usd": 0.30,
+  "infra_cost_per_sub_usd": 1.25,
+
+  "wholesale": {
+    "_unit": "USD per output. Video = one 5-second clip unless noted. Sources: fal.ai model pages via devtk.ai / ofox.ai / buildmvpfast.com (Sep-Oct 2026), Google Gemini API pricing via benchlm.ai (2026-09-11).",
+    "kling_3_pro_5s":          { "usd": 0.56, "label": "Kling 3.0 Pro · 5s · no audio",       "source": "fal $0.112/s" },
+    "kling_3_pro_5s_audio":    { "usd": 0.84, "label": "Kling 3.0 Pro · 5s · audio",          "source": "fal $0.168/s" },
+    "kling_25_turbo_5s":       { "usd": 0.35, "label": "Kling 2.5 Turbo Pro · 5s",            "source": "fal $0.07/s" },
+    "seedance_2_720p_5s":      { "usd": 1.52, "label": "Seedance 2.0 · 720p · 5s",            "source": "fal $0.3034/s" },
+    "seedance_2_fast_720p_5s": { "usd": 1.21, "label": "Seedance 2.0 Fast · 720p · 5s",       "source": "fal $0.2419/s" },
+    "seedance_1_pro_5s":       { "usd": 0.62, "label": "Seedance 1 Pro · 5s",                 "source": "fal ~$0.124/s" },
+    "veo_31_8s_audio":         { "usd": 3.20, "label": "Veo 3.1 · 8s · audio",                "source": "fal $0.40/s" },
+    "veo_31_lite_5s":          { "usd": 0.15, "label": "Veo 3.1 Lite · 720p · 5s",            "source": "fal $0.03/s" },
+    "nano_banana_pro_2k":      { "usd": 0.134, "label": "Nano Banana Pro · 2K image",         "source": "Google $0.134" },
+    "nano_banana_pro_4k":      { "usd": 0.24,  "label": "Nano Banana Pro · 4K image",         "source": "Google $0.24" },
+    "nano_banana_2_1k":        { "usd": 0.067, "label": "Nano Banana 2 · 1K image",           "source": "Google $0.067" }
+  },
+
+  "plans": {
+    "_note": "Proposed launch plans. credits = monthly allowance. Rollover capped at 1x the allowance (so balance never exceeds 2x) while the subscription is active.",
+    "free":    { "price_usd": 0,   "credits": 150,   "concurrency": 1, "storage_gb": 2,   "automations": 1,  "agent_keys": 0 },
+    "creator": { "price_usd": 19,  "credits": 1500,  "concurrency": 4, "storage_gb": 25,  "automations": 10, "agent_keys": 1 },
+    "pro":     { "price_usd": 49,  "credits": 4200,  "concurrency": 8, "storage_gb": 100, "automations": 50, "agent_keys": 5 },
+    "studio":  { "price_usd": 129, "credits": 11500, "concurrency": 16, "storage_gb": 500, "automations": 250, "agent_keys": 25 }
+  },
+
+  "topups": {
+    "_note": "One-time packs. No expiry while subscribed (Higgsfield's top-ups expire after 90 days).",
+    "pack_1000":  { "price_usd": 14,  "credits": 1000 },
+    "pack_3000":  { "price_usd": 39,  "credits": 3000 },
+    "pack_10000": { "price_usd": 119, "credits": 10000 }
+  },
+
+  "higgsfield_reference": {
+    "_source": "Live pricing config returned by Higgsfield's own MCP server (show_plans_and_credits), pulled 2026-10-29.",
+    "plus_annual":   { "price_usd": 39,  "credits": 1000 },
+    "ultra_monthly": { "price_usd": 129, "credits": 3000 },
+    "ultra_annual":  { "price_usd": 99,  "credits": 3000 },
+    "topup_4000":    { "price_usd": 210.53, "credits": 4000, "expires_days": 90 },
+    "advertised_yield_per_1000_credits": {
+      "kling_3_videos": 200,
+      "nano_banana_pro_images": 600
+    }
+  },
+
+  "assumptions": {
+    "_note": "Guesses until you have real usage data. Change them and re-run economics.py.",
+    "utilization": [0.4, 0.65, 1.0],
+    "usage_mix": {
+      "_note": "Share of credits spent on each output. Must sum to 1.",
+      "nano_banana_pro_2k": 0.25,
+      "nano_banana_2_1k": 0.10,
+      "kling_3_pro_5s": 0.25,
+      "seedance_2_fast_720p_5s": 0.15,
+      "veo_31_lite_5s": 0.15,
+      "veo_31_8s_audio": 0.10
+    }
+  }
+}

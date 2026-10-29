@@ -1,0 +1,87 @@
+{
+  "_about": "Tool surface of the broker's remote MCP server. REST mirrors these one-to-one under /v1. Every spending tool goes through the ledger's quote -> hold -> capture/release flow and the calling agent key's caps.",
+  "server": { "name": "video-broker", "transport": "streamable-http", "auth": ["oauth2.1 (Claude connectors)", "bearer agent key"] },
+  "tools": [
+    {
+      "name": "list_models",
+      "spends": false,
+      "description": "Curated models with type, durations, aspect ratios and current credit price per lane.",
+      "input": { "type": { "enum": ["image", "video", "audio", "edit"] }, "tier": { "enum": ["fast", "standard", "best"] } }
+    },
+    {
+      "name": "quote",
+      "spends": false,
+      "description": "Exact credit and USD price for a generation before running it. Returns a quote_id valid for 10 minutes.",
+      "input": { "model": "string | 'auto'", "params": "object", "lane": { "enum": ["realtime", "saver"] } }
+    },
+    {
+      "name": "generate",
+      "spends": true,
+      "description": "Run a generation. Accepts a quote_id or model+params. Fails without spending if over the key's per-job or monthly cap.",
+      "input": { "quote_id": "string?", "model": "string?", "params": "object?", "lane": "realtime|saver", "webhook_url": "string?" },
+      "output": { "job_id": "string", "credits_held": "int", "status": "queued" }
+    },
+    {
+      "name": "get_job",
+      "spends": false,
+      "description": "Status, outputs (signed URLs), and the receipt: provider, seconds, credits captured or released.",
+      "input": { "job_id": "string" }
+    },
+    {
+      "name": "cancel_job",
+      "spends": false,
+      "description": "Cancel a queued job and release its hold.",
+      "input": { "job_id": "string" }
+    },
+    {
+      "name": "upload_media",
+      "spends": false,
+      "description": "Get a presigned upload URL for a reference image or video; returns media_id.",
+      "input": { "filename": "string", "content_type": "string" }
+    },
+    {
+      "name": "list_workflows",
+      "spends": false,
+      "description": "Workflows the account owns, with triggers and estimated credits per run.",
+      "input": {}
+    },
+    {
+      "name": "run_workflow",
+      "spends": true,
+      "description": "Run a workflow now. Pre-quotes all steps and holds the total.",
+      "input": { "workflow_id": "string", "inputs": "object" }
+    },
+    {
+      "name": "create_workflow",
+      "spends": false,
+      "description": "Create a workflow from a template or a step list. Created disabled until a human enables it in the app, unless the key has the workflows:enable scope.",
+      "input": { "template_id": "string?", "steps": "array?", "trigger": "object" }
+    },
+    {
+      "name": "get_balance",
+      "spends": false,
+      "description": "Available credits, open holds, rollover, and this key's month-to-date spend vs its cap.",
+      "input": {}
+    },
+    {
+      "name": "list_library",
+      "spends": false,
+      "description": "Search past outputs by text, model, date, folder.",
+      "input": { "query": "string?", "limit": "int?" }
+    },
+    {
+      "name": "store_list_products",
+      "spends": false,
+      "description": "Products from the connected Shopify/WooCommerce store, for use as workflow inputs.",
+      "input": { "since": "date?", "limit": "int?" }
+    },
+    {
+      "name": "request_topup_link",
+      "spends": false,
+      "description": "Returns a Stripe Checkout link for a human to pay. Agents cannot purchase directly.",
+      "input": { "pack": { "enum": ["pack_1000", "pack_3000", "pack_10000"] } }
+    }
+  ],
+  "agent_key_scopes": ["models:read", "jobs:write", "jobs:read", "media:write", "workflows:read", "workflows:run", "workflows:write", "workflows:enable", "store:read", "billing:read"],
+  "webhook_events": ["job.completed", "job.failed", "workflow.run.completed", "balance.low", "approval.requested"]
+}
