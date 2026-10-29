@@ -454,7 +454,7 @@ payouts yet; add them before launch.
 viral consumer funnel and $480M+ of venture money (an $80M Series A extension and a
 $400M Series B). [Guessing] Bootstrapped, $250M is a 5–7 year goal at best. In 2–3
 years it needs a venture round of comparable size. The founder program filling all
-10,000 seats gets you to about **$22–25M a year**, which is the realistic first summit.
+10,000 seats gets you to about **$24–27M a year** (founder ARPU ~$199 before top-ups), which is the realistic first summit.
 
 ### 12.2 First 12 months
 [Guessing on volumes]
