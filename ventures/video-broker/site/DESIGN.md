@@ -1,8 +1,9 @@
 # Website design: v0.1
 
-`index.html` (home) and `founders.html` are designed. Shared tokens and components live in `styles.css`. It's a single static file you can open in a
-browser, with light and dark mode and widths down to 360px. This doc is the system it's
-built on and the plan for the remaining pages.
+`index.html` (home) and `founders.html` are designed. Shared tokens and components live
+in `styles.css`. Both are static files you can open in a browser, with light and dark mode
+and widths down to 360px. This doc is the system they're built on and the plan for the
+remaining pages.
 
 ## Direction
 **"The honest studio."** A warm paper/ink palette with one hot accent, for a site that
@@ -42,7 +43,7 @@ Radius is 14px on cards and pills on buttons. Use one primary CTA per view.
 ## Sitemap
 | Page | Status | Notes |
 |---|---|---|
-| Home `/` | **designed** | This file |
+| Home `/` | **designed** | `index.html` |
 | Pricing `/pricing` | in home | Split out with a full feature matrix + top-up calculator |
 | Founders `/founders` | **designed** | `founders.html`: seat counter, autoplay showcase wall, kickback calculator, rules, sticky CTA |
 | Models `/models` | next | Live credit price per model from `pricing.json`, provider terms links |
